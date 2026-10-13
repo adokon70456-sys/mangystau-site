@@ -4,205 +4,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b38">
 <title>MANGYSTAU HERITAGE — Маңғыстау мұрасы</title>
 <style>
-:root{--sand:#e8d4ad;--dark:#102e30;--gold:#cda96a;--cream:#f7f4ed}
+:root{--green:#173b38;--sand:#d8b98a;--cream:#f6f2e9;--ink:#243532;--muted:#687773;--white:#fffdf8}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:#203536}
-nav{position:sticky;top:0;z-index:10;background:#102e30f5;color:white;display:flex;justify-content:space-between;align-items:center;padding:17px 6%;gap:16px;flex-wrap:wrap}
-.brand{font-weight:800;letter-spacing:2px}
-nav a{color:white;text-decoration:none;font-size:14px;margin:0 8px}
-.hero{min-height:570px;padding:100px 8%;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#071f20e8,#071f2040),url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85') center/cover}
-.hero-inner{max-width:720px}
-.eyebrow{color:#edcb8b;letter-spacing:4px;font-size:12px}
-h1{font-size:clamp(42px,7vw,82px);line-height:1.02;margin:20px 0}
-.hero p{font-size:18px;line-height:1.8;max-width:600px}
-.btn{display:inline-block;background:var(--gold);color:#132d2d;padding:14px 22px;border-radius:4px;text-decoration:none;font-weight:bold;margin-top:16px;border:0;cursor:pointer}
-section{padding:75px 7%}
-.section-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
-.kicker{color:#9a7740;text-transform:uppercase;letter-spacing:3px;font-size:12px}
-h2{font-size:clamp(30px,4vw,45px);margin:12px 0 20px;color:var(--dark)}
-.intro{max-width:720px;line-height:1.8;color:#5c6966}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#c6b99e}
-.stat{background:#e9dfca;padding:28px;text-align:center}
-.stat strong{font-size:30px;color:#214a49;display:block;margin-bottom:8px}
-.filters{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0}
-.filters button{border:1px solid #c4b89f;background:transparent;padding:10px 15px;cursor:pointer;border-radius:22px;color:#314744}
-.filters button.active,.filters button:hover{background:var(--dark);color:white}
-.search{padding:13px 15px;border:1px solid #c4b89f;border-radius:4px;width:min(100%,320px);font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:24px}
-.place{background:white;border-radius:8px;overflow:hidden;box-shadow:0 8px 30px #243b3010;transition:transform .2s}
-.place:hover{transform:translateY(-5px)}
-.place img{width:100%;height:220px;object-fit:cover;background:#ddd}
-.place-body{padding:20px}
-.tag{font-size:11px;letter-spacing:1px;color:#9b7742;text-transform:uppercase}
-.place h3{font-size:22px;margin:10px 0}
-.place p{color:#687571;line-height:1.7;font-size:14px}
-.about{background:var(--dark);color:white;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
-.about h2{color:white}
-.about p{line-height:1.9;color:#d4dfd9}
-.about img{width:100%;height:370px;object-fit:cover;border-radius:8px}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
-.feature{padding:25px;background:white;border-top:3px solid var(--gold)}
-.feature h3{margin-top:0}
-.feature p{color:#69736e;line-height:1.7}
-.mapbox{background:#e6dece;padding:30px;border-radius:8px}
-.mapbox p{line-height:1.8}
-.maplink{display:inline-block;color:#174c4b;font-weight:bold;margin-top:10px}
-footer{background:#091f20;color:#e9e4d8;padding:35px 7%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer p{color:#b7c3bd;font-size:13px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.about{grid-template-columns:1fr}.features{grid-template-columns:1fr}.hero{min-height:480px}}
-@media(max-width:560px){nav{padding:15px 5%}nav div:last-child{display:flex;flex-wrap:wrap;gap:12px}nav a{margin:0;font-size:12px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:75px 6%}section{padding:55px 6%}}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif;line-height:1.6}
+header{background:var(--green);color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.logo{font-size:19px;font-weight:bold;letter-spacing:2px}
+.logo small{display:block;font-size:10px;color:var(--sand);letter-spacing:3px}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button,a.btn{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:bold;text-decoration:none}
+nav button{background:transparent;color:white}
+nav button:hover{background:#315750}
+.hero{padding:75px 6%;color:white;background:linear-gradient(90deg,#102e2beF,#102e2b77),url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85') center/cover;min-height:420px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(38px,7vw,70px);line-height:1.1;max-width:760px;margin:15px 0}
+.hero p{max-width:620px;font-size:17px}
+button.primary,.primary{background:var(--sand);color:var(--green)}
+section{padding:44px 5%}
+h2{font-family:Georgia,serif;font-size:clamp(28px,4vw,42px);line-height:1.2}
+.muted{color:var(--muted)}
+.search{width:100%;max-width:600px;padding:14px;border:1px solid #d8d4c9;border-radius:10px;font-size:16px;margin:10px 0 18px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 24px}
+.filters button{background:#e6e0d3;color:var(--green)}
+.filters button.active{background:var(--green);color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px}
+.card{background:var(--white);border-radius:15px;overflow:hidden;border:1px solid #e8e1d5;box-shadow:0 5px 20px #2435320b}
+.card img{width:100%;height:185px;object-fit:cover;background:#ddd}
+.card-body{padding:17px}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#9a7444;font-weight:bold}
+.card h3{font-family:Georgia,serif;font-size:24px;margin:5px 0}
+.card p{color:var(--muted);font-size:14px;min-height:60px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{background:var(--green);color:white}
+.actions button.secondary{background:#e8e1d5;color:var(--green)}
+.panel{background:var(--green);color:white}
+.panel p{color:#e0e7df}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.stat{padding:18px;background:#ffffff12;border-radius:12px}
+.stat strong{display:block;font-size:28px;color:var(--sand)}
+#detail,#editor{display:none;background:white;border-radius:15px;padding:24px;margin-top:20px;border:1px solid #e5dfd2}
+#detail img{width:100%;max-height:360px;object-fit:cover;border-radius:12px}
+label{display:block;font-size:13px;font-weight:bold;margin:12px 0 5px}
+input,textarea,select{font:inherit;padding:11px;width:100%;border:1px solid #d6d1c6;border-radius:8px;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.notice{padding:12px;border-radius:9px;background:#e9e3d6;font-size:13px}
+footer{padding:30px 5%;background:#102e2b;color:white}
+footer p{color:#d3ded7;font-size:13px}
+.hidden{display:none!important}
+@media(max-width:600px){header{position:relative}.hero{padding:50px 6%;min-height:390px}section{padding:32px 5%}.card img{height:200px}}
 </style>
 </head>
 <body>
-<nav>
-  <div class="brand">MANGYSTAU <span style="color:#d8b675">HERITAGE</span></div>
-  <div>
-    <a href="#places">Мекендер</a>
-    <a href="#heritage">Мұра</a>
-    <a href="#research">Жоба туралы</a>
-    <a href="#map">Карта</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">ҚАЗАҚСТАН · МАҢҒЫСТАУ ОБЛЫСЫ</div>
-    <h1>Табиғаттың<br>тасқа жазған<br>тарихы.</h1>
-    <p>Маңғыстаудың таңғажайып табиғатын, киелі мекендерін және ғасырлардан жеткен мұрасын бір цифрлық кеңістікте таныңыз.</p>
-    <a class="btn" href="#places">Өлкені зерттеу ↗</a>
-  </div>
+<header>
+  <a href="#home" style="color:white;text-decoration:none" class="logo">MANGYSTAU<small>HERITAGE · ЦИФРЛЫҚ АТЛАС</small></a>
+  <nav>
+    <button onclick="go('home')">Басты бет</button>
+    <button onclick="go('places')">Мекендер</button>
+    <button onclick="go('map')">Карта</button>
+    <button onclick="go('archive')">Архив</button>
+    <button onclick="go('project')">Жоба</button>
+    <button onclick="toggleEditor()">Редактор</button>
+  </nav>
 </header>
 
-<section>
-  <div class="section-top">
-    <div>
-      <div class="kicker">Біздің өлкеміз</div>
-      <h2>Маңғыстау — ашық аспан астындағы мұражай</h2>
-    </div>
-  </div>
-  <p class="intro">Бұл цифрлық жоба Маңғыстау облысының табиғи, тарихи және мәдени байлығын танытуға арналған. Әрбір тау, жартас, қорым мен киелі орын — өткен дәуірлерден жеткен құнды мұра.</p>
+<main>
+<section class="hero" id="home">
+  <div class="tag" style="color:#e4c99b">МАҢҒЫСТАУ ОБЛЫСЫ · ҚАЗАҚСТАН</div>
+  <h1>Тарихты таны.<br>Мұраны сақта.</h1>
+  <p>Каспий жағалауынан Үстірттің кең даласына дейін — табиғи ғажайыптар, киелі мекендер мен тарихи мұраны бір цифрлық кеңістікте таны.</p>
+  <button class="primary" onclick="go('places')">Өлкені зерттеу ↗</button>
+  <button onclick="go('project')" style="background:#ffffff20;color:white;margin-left:6px">Ғылыми жоба</button>
+</section>
+
+<section class="panel">
   <div class="stats">
-    <div class="stat"><strong>Табиғат</strong>Ерекше ландшафттар</div>
-    <div class="stat"><strong>Тарих</strong>Ғасырлық ескерткіштер</div>
-    <div class="stat"><strong>Мұра</strong>Киелі орындар мен дәстүр</div>
+    <div class="stat"><strong id="placeCount">20</strong>Үлгілік мекен</div>
+    <div class="stat"><strong>10</strong>Мұра санаты</div>
+    <div class="stat"><strong>Ұсыныс</strong>Зерттеу бағыттары</div>
   </div>
+  <p style="font-size:12px">Ескерту: бұл — демонстрациялық каталог. Мекендер мен деректерді редактор арқылы толықтыруға болады; тексерілмеген ақпаратты ғылыми дерек ретінде қабылдамаңыз.</p>
 </section>
 
 <section id="places">
-  <div class="kicker">Зерттеу бағыты</div>
-  <h2>Өлкенің ерекше мекендері</h2>
-  <p class="intro">Табиғи көріністерден тарихи орындарға дейін Маңғыстаудың байлығын ашыңыз.</p>
-  <input class="search" id="search" type="search" placeholder="Мекен атауын іздеу..." aria-label="Мекен атауын іздеу">
-  <div class="filters">
-    <button class="active" data-filter="all">Барлығы</button>
-    <button data-filter="nature">Табиғат</button>
-    <button data-filter="history">Тарихи орындар</button>
-    <button data-filter="sacred">Киелі мекендер</button>
-  </div>
-  <div class="grid" id="placesGrid">
-    <article class="place" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80" alt="Таулы табиғат көрінісі" loading="lazy">
-      <div class="place-body"><div class="tag">Табиғат</div><h3>Бозжыра</h3><p>Үстірттің ақ жартастары мен ерекше геологиялық бедерімен танылған көрікті мекен.</p></div>
-    </article>
-    <article class="place" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80" alt="Шөл ландшафты" loading="lazy">
-      <div class="place-body"><div class="tag">Табиғат</div><h3>Қызылқұп</h3><p>Түрлі түсті қабаттарымен назар аударатын ерекше табиғи ландшафт.</p></div>
-    </article>
-    <article class="place" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80" alt="Тау шыңдары" loading="lazy">
-      <div class="place-body"><div class="tag">Табиғат</div><h3>Боқты тауы</h3><p>Пішіні мен табиғи құрылымы өлкенің геологиялық ерекшелігін танытатын тау.</p></div>
-    </article>
-    <article class="place" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=900&q=80" alt="Жартасты ландшафт" loading="lazy">
-      <div class="place-body"><div class="tag">Табиғат</div><h3>Шерқала</h3><p>Ерекше пішінімен көзге түсетін, Маңғыстау табиғатының танымал нысандарының бірі.</p></div>
-    </article>
-    <article class="place" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80" alt="Табиғи кеңістік" loading="lazy">
-      <div class="place-body"><div class="tag">Табиғат</div><h3>Торыш</h3><p>Шар тәрізді тас түзілімдерімен белгілі алқап. Геологияны зерттеуге қызықты орын.</p></div>
-    </article>
-    <article class="place" data-category="sacred">
-      <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="Сәулет ескерткіші" loading="lazy">
-      <div class="place-body"><div class="tag">Киелі мұра</div><h3>Бекет ата</h3><p>Маңғыстаудың рухани тарихымен байланысты маңызды жерасты мешіттері мен зиярат орны.</p></div>
-    </article>
-    <article class="place" data-category="sacred">
-      <img src="https://images.unsplash.com/photo-1604580864964-e2e9c8a9f6c4?auto=format&fit=crop&w=900&q=80" alt="Ежелгі тас құрылыс" loading="lazy">
-      <div class="place-body"><div class="tag">Киелі мұра</div><h3>Шопан ата</h3><p>Жерасты мешіті мен тарихи қорымы арқылы танылған киелі орын.</p></div>
-    </article>
-    <article class="place" data-category="history">
-      <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80" alt="Тарихи сәулет" loading="lazy">
-      <div class="place-body"><div class="tag">Тарих</div><h3>Маңғыстау қорымдары</h3><p>Құлпытастар мен сағанатамдар халықтың тарихы, өнері және дүниетанымы туралы дерек береді.</p></div>
-    </article>
-    <article class="place" data-category="history">
-      <img src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80" alt="Тарихи музей экспозициясы" loading="lazy">
-      <div class="place-body"><div class="tag">Тарих</div><h3>Өлкетану мұрасы</h3><p>Археологиялық олжалар, тарихи құжаттар мен дәстүрлер өңірдің өткенін зерттеуге көмектеседі.</p></div>
-    </article>
-  </div>
-  <p id="empty" hidden>Іздеуге сәйкес мекен табылмады.</p>
-</section>
-
-<section id="heritage" class="about">
-  <div>
-    <div class="kicker">Өткеннен аманат</div>
-    <h2>Тарихты сақтау — болашаққа жол</h2>
-    <p>Маңғыстаудың мұрасы табиғатпен ғана шектелмейді. Бұл — сәулет өнері, жерасты мешіттері, қорымдар, аңыздар, шежірелер және ұрпақтан ұрпаққа жалғасқан мәдени жады.</p>
-    <p>Әрбір нысан туралы мәліметті сенімді дереккөздермен салыстырып, жергілікті өлкетану материалдарымен толықтыру маңызды.</p>
-    <a class="btn" href="#research">Зерттеу мақсатын оқу</a>
-  </div>
-  <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=85" alt="Сәулет пен мәдени мұра" loading="lazy">
-</section>
-
-<section id="research">
-  <div class="kicker">Ғылыми жоба</div>
-  <h2>Жобаның мақсаты мен міндеттері</h2>
-  <p class="intro">Маңғыстау облысының табиғи және тарихи-мәдени мұрасын цифрлық форматта таныстырып, оны зерттеуге және қорғауға қызығушылық қалыптастыру.</p>
-  <div class="features">
-    <div class="feature"><h3>01 · Зерттеу</h3><p>Өлкенің көрікті және киелі орындары туралы деректерді жинау, салыстыру және жүйелеу.</p></div>
-    <div class="feature"><h3>02 · Цифрландыру</h3><p>Ақпаратты интерактивті веб-сайтта карта, мәтін және фотоматериал арқылы ұсыну.</p></div>
-    <div class="feature"><h3>03 · Насихаттау</h3><p>Жас ұрпақтың туған өлке тарихына қызығушылығын арттыру және мұраны қорғауға үндеу.</p></div>
+  <div class="tag">ЦИФРЛЫҚ АТЛАС</div>
+  <h2>Маңғыстаудың көрікті мекендері</h2>
+  <p class="muted">Іздеуді пайдаланыңыз немесе санат бойынша сүзгілеңіз.</p>
+  <input class="search" id="search" placeholder="Тарихи орын немесе мекен іздеу…" oninput="renderPlaces()">
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="cards"></div>
+  <div id="detail"></div>
+  <div id="editor">
+    <h2 id="editorTitle">Жаңа орын қосу</h2>
+    <p class="muted">Өзгерістер осы браузерде сақталады. Басқа құрылғылармен автоматты түрде синхрондалмайды.</p>
+    <input type="hidden" id="editId">
+    <div class="form-grid">
+      <div><label>Мекен атауы</label><input id="fName" placeholder="Мысалы: Бозжыра"></div>
+      <div><label>Санат</label><select id="fCategory"></select></div>
+      <div><label>Орналасқан жері</label><input id="fLocation" placeholder="Аудан немесе елді мекен"></div>
+      <div><label>Сурет сілтемесі</label><input id="fImage" placeholder="https://..."></div>
+    </div>
+    <label>Қысқаша сипаттама</label><textarea id="fDesc"></textarea>
+    <label>Тарихи мәлімет (дереккөзбен тексеріңіз)</label><textarea id="fHistory"></textarea>
+    <label>Аңыз (аңыз ретінде белгілеңіз)</label><textarea id="fLegend"></textarea>
+    <label>Дереккөз сілтемесі</label><input id="fSource" placeholder="https://...">
+    <div class="actions" style="margin-top:16px">
+      <button onclick="savePlace()">Сақтау</button>
+      <button class="secondary" onclick="cancelEdit()">Болдырмау</button>
+      <button class="secondary" onclick="deletePlace()" id="deleteBtn">Өшіру</button>
+      <button class="secondary" onclick="exportJSON()">JSON экспорттау</button>
+      <button class="secondary" onclick="document.getElementById('importFile').click()">JSON импорттау</button>
+      <input id="importFile" class="hidden" type="file" accept=".json,application/json" onchange="importJSON(event)">
+    </div>
+    <label>Құрылғыдан сурет жүктеу</label><input id="uploadImage" type="file" accept="image/*" onchange="uploadPhoto(event)">
+    <p id="message" role="status"></p>
   </div>
 </section>
 
 <section id="map">
-  <div class="kicker">Саяхат бағыты</div>
-  <h2>Маңғыстау картасын зерттеу</h2>
-  <div class="mapbox">
-    <p>Картадан өңірдің табиғи және тарихи нысандарын қарауға болады. Нақты координаттар мен маршрутты сапар алдында ресми карталар арқылы тексеріңіз.</p>
-    <a class="maplink" href="https://www.google.com/maps/search/Mangystau+Region+Kazakhstan/" target="_blank" rel="noopener">Google Maps картасын ашу ↗</a>
+  <div class="tag">БАҒДАРЛАУ</div><h2>Мекендер картасы</h2>
+  <p class="muted">Нақты орындарды картадан іздеу үшін мекен атауын басыңыз. Бұл прототипте карта белгілері тек каталогқа сүйенеді; белгісіз координаттар ойдан берілмейді.</p>
+  <div class="notice">Картаны ашу үшін мекен карточкасындағы «Картадан көру» батырмасын пайдаланыңыз. Сыртқы карта қызметі жаңа бетте ашылады.</div>
+  <div class="grid" id="mapCards" style="margin-top:20px"></div>
+</section>
+
+<section id="archive">
+  <div class="tag">ЦИФРЛЫҚ АРХИВ</div><h2>Өлке жады</h2>
+  <div class="grid">
+    <article class="card"><div class="card-body"><h3>Тарихи құжаттар</h3><p>Мұрағат материалдары мен тарихи құжаттарды дереккөзімен бірге жинақтауға арналған бөлім.</p></div></article>
+    <article class="card"><div class="card-body"><h3>Аңыздар мен шежіре</h3><p>Жергілікті аңыздарды тарихи фактіден бөлек белгілеңіз; айтушысы мен жазып алынған уақытын көрсетіңіз.</p></div></article>
+    <article class="card"><div class="card-body"><h3>Фотосуреттер мен бейне</h3><p>Өңірдің көріністері мен мұра ескерткіштерін авторы, күні және рұқсатымен тіркеңіз.</p></div></article>
+    <article class="card"><div class="card-body"><h3>Кітаптар мен зерттеулер</h3><p>Автор, еңбек атауы, жылы және басылым туралы мәліметті көрсетіңіз.</p></div></article>
   </div>
 </section>
 
-<footer>
-  <div><strong>MANGYSTAU HERITAGE</strong><p>Маңғыстау мұрасы — ұрпаққа аманат</p></div>
-  <div><p>Ғылыми-зерттеу жобасы · Қазақстан</p><p>Ақпаратты сенімді дереккөздермен толықтырыңыз.</p></div>
-</footer>
+<section class="panel" id="project">
+  <div class="tag">ҒЫЛЫМИ ЖОБА</div><h2>Мақсат пен зерттеу міндеттері</h2>
+  <p><b>Зерттеу мәселесі:</b> Маңғыстау облысының табиғи және тарихи-мәдени нысандары туралы деректер әртүрлі жерде орналасқан, оларды бір цифрлық кеңістікте таныстыру қажет.</p>
+  <p><b>Мақсаты:</b> өңір мұрасы туралы мәліметтерді жүйелеп, интерактивті цифрлық атлас прототипін әзірлеу.</p>
+  <p><b>Міндеттері:</b> дерек жинау; нысандарды санаттарға бөлу; цифрлық каталог құру; пайдаланушыға ыңғайлы іздеу мен редактор жасау; прототипті сынау.</p>
+  <p><b>Ғылыми болжам:</b> егер өңір мұрасы тексерілген деректер мен түсінікті санаттар арқылы интерактивті түрде ұсынылса, пайдаланушының өлкетануға қызығушылығын арттыруға көмектесуі мүмкін.</p>
+  <p><b>Зерттеу әдістері:</b> дереккөздерді талдау, салыстыру, жіктеу, цифрлық модельдеу және пайдаланушы пікірін жинау.</p>
+  <p><b>Практикалық маңызы:</b> сайтты мектептегі өлкетану сабақтарында және ғылыми жобаны таныстыруда қолдануға болады.</p>
+</section>
+
+<section>
+  <div class="tag">ЖАУАПТЫ САЯХАТ</div><h2>Мұраны сақтайық</h2>
+  <div class="grid">
+    <article class="card"><div class="card-body"><h3>Ескерткішке құрмет</h3><p>Тасқа жазбаңыз, тарихи құрылымдарды қозғамаңыз және киелі орындардағы жергілікті тәртіпті сақтаңыз.</p></div></article>
+    <article class="card"><div class="card-body"><h3>Табиғатты қорғау</h3><p>Қоқыс қалдырмаңыз, өсімдіктерге зиян келтірмеңіз және нәзік геологиялық түзілімдерге шықпаңыз.</p></div></article>
+    <article class="card"><div class="card-body"><h3>Қауіпсіз сапар</h3><p>Шалғай бағыттарға шығар алдында жол, ауа райы, байланыс және көлік дайындығын тексеріңіз.</p></div></article>
+  </div>
+</section>
+</main>
+<footer><b>MANGYSTAU HERITAGE</b><p>Маңғыстау мұрасына арналған ғылыми-ағартушылық прототип.</p><p>Суреттер мен сипаттамаларды ғылыми жұмысқа пайдаланбас бұрын дереккөздер арқылы тексеріңіз.</p></footer>
 
 <script>
-const buttons = document.querySelectorAll('[data-filter]');
-const cards = document.querySelectorAll('.place');
-const search = document.getElementById('search');
-const empty = document.getElementById('empty');
-let category = 'all';
-function updateCards() {
-  const query = search.value.toLocaleLowerCase('kk-KZ').trim();
-  let visible = 0;
-  cards.forEach(card => {
-    const matchesCategory = category === 'all' || card.dataset.category === category;
-    const matchesText = card.innerText.toLocaleLowerCase('kk-KZ').includes(query);
-    const show = matchesCategory && matchesText;
-    card.hidden = !show;
-    if (show) visible++;
-  });
-  empty.hidden = visible > 0;
-}
-buttons.forEach(button => button.addEventListener('click', () => {
-  category = button.dataset.filter;
-  buttons.forEach(b => b.classList.toggle('active', b === button));
-  updateCards();
-}));
-search.addEventListener('input', updateCards);
+const categories=['Барлығы','Табиғи нысандар','Киелі орындар','Тарихи ескерткіштер','Жерасты мешіттері','Қорымдар мен кесенелер','Геологиялық нысандар','Жағажайлар мен Каспий жағалауы','Археологиялық орындар','Мұражайлар мен мәдени орындар','Елді мекендер мен этномәдени орындар'];
+const seed=[
+['Бозжыра','Табиғи нысандар','Үстірт өңірі','Үстірттің ақ жартастары мен ерекше бедері Маңғыстаудың танымал табиғи нышандарының бірі.','Тарихи деректерді сенімді дереккөзбен толықтырыңыз.','Жергілікті аңыздарды дерек ретінде емес, ауызша мұра ретінде көрсетіңіз.','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80'],
+['Торыш — шар тастар алқабы','Геологиялық нысандар','Түпқараған өңірі','Домалақ тас түзілімдерімен танымал табиғи аймақ.','Геологиялық түсіндірмесін ғылыми дереккөзден тексеріңіз.','','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'],
+['Шерқала тауы','Табиғи нысандар','Қарақия ауданы маңы','Пішінімен ерекшеленетін оқшау тау.','Тарихи мәліметтерді дереккөзбен толықтырыңыз.','Шерқала туралы аңыздарды жергілікті ауызша дәстүрден жинақтауға болады.','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80'],
+['Айрақты–Шоманай','Геологиялық нысандар','Маңғыстау өңірі','Қатпарлы бедерімен және ерекше тау пішіндерімен белгілі аймақ.','','','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80'],
+['Боқты тауы','Геологиялық нысандар','Маңғыстау өңірі','Қабат-қабат жыныстарымен танылатын геологиялық нысан.','','','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80'],
+['Қызылқұп','Геологиялық нысандар','Маңғыстау өңірі','Түрлі түсті жыныстарымен көзге түсетін табиғи аймақ.','','','https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80'],
+['Бекет ата','Жерасты мешіттері','Оғланды өңірі','Маңғыстаудағы маңызды рухани зиярат орындарының бірі.','Нақты тарихи деректерді ресми және ғылыми дереккөздермен тексеріңіз.','','https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80'],
+['Шопан ата','Жерасты мешіттері','Маңғыстау өңірі','Жерасты мешіті мен көне қорымы бар рухани кешен.','','','https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=900&q=80'],
+['Шақпақ ата','Жерасты мешіттері','Түпқараған өңірі','Жартастан ойылған сәулеттік-рухани ескерткіш.','','','https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=900&q=80'],
+['Сұлтан епе','Киелі орындар','Түпқараған өңірі','Маңғыстаудың тарихи-рухани мұрасына жататын орын.','','','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80'],
+['Тамшалы','Табиғи нысандар','Форт-Шевченко маңы','Табиғи ойыс пен су тамшылауына байланысты танылған мекен.','Маусымдық жағдай мен келу талаптарын тексеріңіз.','','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80'],
+['Саура','Табиғи нысандар','Түпқараған өңірі','Жағалаулық табиғатымен танымал шатқал-аймақ.','','','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80'],
+['Жығылған','Геологиялық нысандар','Түпқараған өңірі','Жағалау бедері мен геологиялық құрылымдары қызықтыратын аймақ.','','','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80'],
+['Қапамсай','Табиғи нысандар','Маңғыстау өңірі','Жартасты шатқалдарымен ерекшеленетін табиғи орын.','','','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'],
+['Тұзбайыр','Геологиялық нысандар','Үстірт маңы','Ақ тұзды жазықтары мен кең панорамалық көрінісімен танымал аймақ.','','','https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80'],
+['Қарақия ойпаты','Геологиялық нысандар','Қарақия ауданы','Қазақстанның ерекше жер бедері нысандарының бірі.','Биіктік және географиялық деректерді ресми картадан тексеріңіз.','','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'],
+['Кендірлі','Жағажайлар мен Каспий жағалауы','Каспий жағалауы','Каспий теңізі жағалауындағы демалыс аймағы.','Маусымдық қолжетімділік пен инфрақұрылым туралы ақпаратты алдын ала тексеріңіз.','','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80'],
+['Ақтау','Елді мекендер мен этномәдени орындар','Маңғыстау облысы','Каспий жағалауындағы облыс орталығы және өңірге саяхаттың маңызды нүктесі.','','','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80'],
+['Форт-Шевченко','Мұражайлар мен мәдени орындар','Түпқараған ауданы','Тарихы мен мәдени мұрасы бар жағалаудағы қала.','Қаладағы музейлердің жұмыс кестесін ресми дереккөзден тексеріңіз.','','https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=900&q=80'],
+['Маңғыстаудың көне қорымдары','Қорымдар мен кесенелер','Маңғыстау облысы','Құлпытастар мен тас сәулет дәстүрін зерттеуге мүмкіндік беретін тарихи мұра.','Әр қорымның атауы, мерзімі мен қорғалатын мәртебесін жеке тексеріңіз.','','https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=900&q=80']
+];
+let places=[];
+try{places=JSON.parse(localStorage.getItem('mh_catalog')||'null')||seed.map((p,i)=>({id:i+1,name:p[0],category:p[1],location:p[2],desc:p[3],history:p[4],legend:p[5],image:p[6],source:''}));}catch(e){places=seed.map((p,i)=>({id:i+1,name:p[0],category:p[1],location:p[2],desc:p[3],history:p[4],legend:p[5],image:p[6],source:''}));}
+let activeCategory='Барлығы',nextId=Math.max(0,...places.map(p=>Number(p.id)||0))+1;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function persist(){try{localStorage.setItem('mh_catalog',JSON.stringify(places));return true}catch(e){alert('Сақтау мүмкін болмады. Сурет файлы тым үлкен болуы мүмкін. Кішірек сурет қолданыңыз.');return false}}
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});if(id!=='places')document.getElementById('detail').style.display='none'}
+function initFilters(){document.getElementById('filters').innerHTML=categories.map(c=>`<button class="${c===activeCategory?'active':''}" onclick="setCategory('${c.replace(/'/g,"\\'")}')">${esc(c)}</button>`).join('');document.getElementById('fCategory').innerHTML=categories.slice(1).map(c=>`<option>${esc(c)}</option>`).join('')}
+function setCategory(c){activeCategory=c;initFilters();renderPlaces()}
+function renderPlaces(){let q=document.getElementById('search').value.toLocaleLowerCase('kk').trim();let list=places.filter(p=>(activeCategory==='Барлығы'||p.category===activeCategory)&&[p.name,p.category,p.location,p.desc].join(' ').toLocaleLowerCase('kk').includes(q));document.getElementById('cards').innerHTML=list.map(p=>`<article class="card"><img loading="lazy" src="${esc(p.image||'')}" alt="${esc(p.name)}" onerror="this.style.display='none'"><div class="card-body"><div class="tag">${esc(p.category)}</div><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p><p class="muted">⌖ ${esc(p.location||'Орналасуы нақтылануда')}</p><div class="actions"><button onclick="showDetail(${Number(p.id)})">Толығырақ</button><button class="secondary" onclick="openMap(${Number(p.id)})">Картадан көру ↗</button><button class="secondary" onclick="editPlace(${Number(p.id)})">Өңдеу</button></div></div></article>`).join('')||'<p>Бұл санатта әзірге мекен табылмады. Редактор арқылы жаңа орын қосыңыз.</p>';document.getElementById('placeCount').textContent=places.length;document.getElementById('mapCards').innerHTML=list.slice(0,6).map(p=>`<article class="card"><div class="card-body"><h3>${esc(p.name)}</h3><p>${esc(p.location)}</p><button onclick="openMap(${Number(p.id)})">Картадан іздеу ↗</button></div></article>`).join('')}
+function showDetail(id){let p=places.find(x=>x.id===id);if(!p)return;let d=document.getElementById('detail');d.style.display='block';d.innerHTML=`<button class="secondary" onclick="document.getElementById('detail').style.display='none'">✕ Жабу</button><h2>${esc(p.name)}</h2><img src="${esc(p.image||'')}" alt="${esc(p.name)}" onerror="this.style.display='none'"><p class="tag">${esc(p.category)} · ${esc(p.location)}</p><h3>Сипаттама</h3><p>${esc(p.desc)}</p><h3>Тарихи мәлімет</h3><p>${esc(p.history||'Тексерілген тарихи мәлімет әлі енгізілмеген.')}</p><h3>Аңыз және ауызша мұра</h3><p>${esc(p.legend||'Аңыз туралы дерек әлі енгізілмеген.')}</p><h3>Географиялық мәлімет</h3><p>Нақты координаттар бұл үлгіде тексерілмеген. Мекенді сыртқы картадан атауы бойынша іздеңіз.</p><h3>Қауіпсіздік</h3><p>Жол және ауа райы жағдайын алдын ала тексеріңіз; тарихи ескерткіштер мен табиғи түзілімдерді бүлдірмеңіз.</p><p>Дереккөз: ${p.source?`<a target="_blank" rel="noopener" href="${esc(p.source)}">${esc(p.source)}</a>`:'дереккөз әлі енгізілмеген'}</p><div class="actions"><button onclick="openMap(${Number(p.id)})">Картадан көру ↗</button><button class="secondary" onclick="editPlace(${Number(p.id)})">Мәліметті өңдеу</button></div>`;d.scrollIntoView({behavior:'smooth',block:'start'})}
+function openMap(id){let p=places.find(x=>x.id===id);if(!p)return;window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.name+' '+p.location+' Mangystau Kazakhstan'),'_blank','noopener')}
+function toggleEditor(){let e=document.getElementById('editor');e.style.display=e.style.display==='block'?'none':'block';if(e.style.display==='block'){cancelEdit();e.scrollIntoView({behavior:'smooth'})}}
+function editPlace(id){let p=places.find(x=>x.id===id);if(!p)return;document.getElementById('editor').style.display='block';document.getElementById('editorTitle').textContent='Мекенді өңдеу';document.getElementById('editId').value=p.id;document.getElementById('fName').value=p.name;document.getElementById('fCategory').value=p.category;document.getElementById('fLocation').value=p.location;document.getElementById('fImage').value=p.image||'';document.getElementById('fDesc').value=p.desc||'';document.getElementById('fHistory').value=p.history||'';document.getElementById('fLegend').value=p.legend||'';document.getElementById('fSource').value=p.source||'';document.getElementById('deleteBtn').style.display='inline-block';document.getElementById('editor').scrollIntoView({behavior:'smooth'})}
+function cancelEdit(){document.getElementById('editId').value='';['fName','fLocation','fImage','fDesc','fHistory','fLegend','fSource'].forEach(id=>document.getElementById(id).value='');document.getElementById('editorTitle').textContent='Жаңа орын қосу';document.getElementById('deleteBtn').style.display='none';document.getElementById('message').textContent=''}
+function savePlace(){let name=document.getElementById('fName').value.trim();if(!name){alert('Мекен атауын енгізіңіз.');return}let id=Number(document.getElementById('editId').value);let data={name,category:document.getElementById('fCategory').value,location:document.getElementById('fLocation').value.trim(),image:document.getElementById('fImage').value.trim(),desc:document.getElementById('fDesc').value.trim(),history:document.getElementById('fHistory').value.trim(),legend:document.getElementById('fLegend').value.trim(),source:document.getElementById('fSource').value.trim()};if(id){places=places.map(p=>p.id===id?{...p,...data}:p)}else{data.id=nextId++;places.unshift(data)}persist();renderPlaces();cancelEdit();document.getElementById('message').textContent='Сәтті сақталды!';alert('Мәлімет сақталды.')}
+function deletePlace(){let id=Number(document.getElementById('editId').value);if(!id)return;if(!confirm('Бұл мекенді каталогтан өшіргіңіз келе ме?'))return;places=places.filter(p=>p.id!==id);persist();renderPlaces();cancelEdit();alert('Мекен өшірілді.')}
+function exportJSON(){let blob=new Blob([JSON.stringify(places,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mangystau-heritage-catalog.json';a.click();URL.revokeObjectURL(a.href)}
+function importJSON(event){let file=event.target.files[0];if(!file)return;let reader=new FileReader();reader.onload=()=>{try{let data=JSON.parse(reader.result);if(!Array.isArray(data))throw new Error();if(!confirm('Қазіргі каталогты импортталатын каталогпен алмастырамыз ба? Алдымен экспорт жасағаныңыз дұрыс.'))return;places=data.map((p,i)=>({...p,id:Number(p.id)||i+1}));nextId=Math.max(0,...places.map(p=>Number(p.id)||0))+1;persist();renderPlaces();alert('Каталог импортталды.')}catch(e){alert('JSON файлының пішімі дұрыс емес.')}event.target.value=''};reader.readAsText(file)}
+function uploadPhoto(event){let file=event.target.files[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Сурет файлын таңдаңыз.');return}if(file.size>1200000){alert('Сурет тым үлкен. 1,2 МБ-тан кіші суретті таңдаңыз.');return}let reader=new FileReader();reader.onload=()=>{document.getElementById('fImage').value=reader.result;document.getElementById('message').textContent='Сурет таңдалды. Сақтау батырмасын басыңыз.'};reader.readAsDataURL(file)}
+initFilters();renderPlaces();
 </script>
 </body>
 </html>
