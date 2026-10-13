@@ -2,58 +2,207 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MANGYSTAU HERITAGE</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4efe5;
-      color: #243c40;
-      text-align: center;
-    }
-    header {
-      padding: 65px 20px;
-      background: #17484b;
-      color: white;
-    }
-    h1 { font-size: 36px; }
-    main {
-      max-width: 750px;
-      margin: 35px auto;
-      padding: 20px;
-      line-height: 1.8;
-    }
-    .place {
-      padding: 18px;
-      margin: 15px 0;
-      background: white;
-      border-radius: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANGYSTAU HERITAGE — Маңғыстау мұрасы</title>
+<style>
+:root{--sand:#e8d4ad;--dark:#102e30;--gold:#cda96a;--cream:#f7f4ed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:#203536}
+nav{position:sticky;top:0;z-index:10;background:#102e30f5;color:white;display:flex;justify-content:space-between;align-items:center;padding:17px 6%;gap:16px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:2px}
+nav a{color:white;text-decoration:none;font-size:14px;margin:0 8px}
+.hero{min-height:570px;padding:100px 8%;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#071f20e8,#071f2040),url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-inner{max-width:720px}
+.eyebrow{color:#edcb8b;letter-spacing:4px;font-size:12px}
+h1{font-size:clamp(42px,7vw,82px);line-height:1.02;margin:20px 0}
+.hero p{font-size:18px;line-height:1.8;max-width:600px}
+.btn{display:inline-block;background:var(--gold);color:#132d2d;padding:14px 22px;border-radius:4px;text-decoration:none;font-weight:bold;margin-top:16px;border:0;cursor:pointer}
+section{padding:75px 7%}
+.section-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.kicker{color:#9a7740;text-transform:uppercase;letter-spacing:3px;font-size:12px}
+h2{font-size:clamp(30px,4vw,45px);margin:12px 0 20px;color:var(--dark)}
+.intro{max-width:720px;line-height:1.8;color:#5c6966}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#c6b99e}
+.stat{background:#e9dfca;padding:28px;text-align:center}
+.stat strong{font-size:30px;color:#214a49;display:block;margin-bottom:8px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0}
+.filters button{border:1px solid #c4b89f;background:transparent;padding:10px 15px;cursor:pointer;border-radius:22px;color:#314744}
+.filters button.active,.filters button:hover{background:var(--dark);color:white}
+.search{padding:13px 15px;border:1px solid #c4b89f;border-radius:4px;width:min(100%,320px);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:24px}
+.place{background:white;border-radius:8px;overflow:hidden;box-shadow:0 8px 30px #243b3010;transition:transform .2s}
+.place:hover{transform:translateY(-5px)}
+.place img{width:100%;height:220px;object-fit:cover;background:#ddd}
+.place-body{padding:20px}
+.tag{font-size:11px;letter-spacing:1px;color:#9b7742;text-transform:uppercase}
+.place h3{font-size:22px;margin:10px 0}
+.place p{color:#687571;line-height:1.7;font-size:14px}
+.about{background:var(--dark);color:white;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
+.about h2{color:white}
+.about p{line-height:1.9;color:#d4dfd9}
+.about img{width:100%;height:370px;object-fit:cover;border-radius:8px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.feature{padding:25px;background:white;border-top:3px solid var(--gold)}
+.feature h3{margin-top:0}
+.feature p{color:#69736e;line-height:1.7}
+.mapbox{background:#e6dece;padding:30px;border-radius:8px}
+.mapbox p{line-height:1.8}
+.maplink{display:inline-block;color:#174c4b;font-weight:bold;margin-top:10px}
+footer{background:#091f20;color:#e9e4d8;padding:35px 7%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer p{color:#b7c3bd;font-size:13px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.about{grid-template-columns:1fr}.features{grid-template-columns:1fr}.hero{min-height:480px}}
+@media(max-width:560px){nav{padding:15px 5%}nav div:last-child{display:flex;flex-wrap:wrap;gap:12px}nav a{margin:0;font-size:12px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:75px 6%}section{padding:55px 6%}}
+</style>
 </head>
 <body>
-  <header>
-    <h1>MANGYSTAU HERITAGE</h1>
-    <p>Маңғыстау мұрасы — ұрпаққа аманат</p>
-  </header>
-  <main>
-    <h2>Маңғыстау өлкесін зерттейік!</h2>
-    <p>Бұл цифрлық жоба Маңғыстау облысының табиғи,
-    тарихи және мәдени мұрасын таныстыруға арналған.</p>
-    <div class="place">
-      <h3>Бозжыра</h3>
-      <p>Үстірттің ерекше табиғи көріністерімен танымал мекені.</p>
+<nav>
+  <div class="brand">MANGYSTAU <span style="color:#d8b675">HERITAGE</span></div>
+  <div>
+    <a href="#places">Мекендер</a>
+    <a href="#heritage">Мұра</a>
+    <a href="#research">Жоба туралы</a>
+    <a href="#map">Карта</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">ҚАЗАҚСТАН · МАҢҒЫСТАУ ОБЛЫСЫ</div>
+    <h1>Табиғаттың<br>тасқа жазған<br>тарихы.</h1>
+    <p>Маңғыстаудың таңғажайып табиғатын, киелі мекендерін және ғасырлардан жеткен мұрасын бір цифрлық кеңістікте таныңыз.</p>
+    <a class="btn" href="#places">Өлкені зерттеу ↗</a>
+  </div>
+</header>
+
+<section>
+  <div class="section-top">
+    <div>
+      <div class="kicker">Біздің өлкеміз</div>
+      <h2>Маңғыстау — ашық аспан астындағы мұражай</h2>
     </div>
-    <div class="place">
-      <h3>Шерқала</h3>
-      <p>Маңғыстаудың ерекше пішінді тарихи-табиғи нысандарының бірі.</p>
-    </div>
-    <div class="place">
-      <h3>Айша бибі емес, Бекет ата</h3>
-      <p>Маңғыстаудың рухани мұрасындағы маңызды киелі орын.</p>
-    </div>
-  </main>
+  </div>
+  <p class="intro">Бұл цифрлық жоба Маңғыстау облысының табиғи, тарихи және мәдени байлығын танытуға арналған. Әрбір тау, жартас, қорым мен киелі орын — өткен дәуірлерден жеткен құнды мұра.</p>
+  <div class="stats">
+    <div class="stat"><strong>Табиғат</strong>Ерекше ландшафттар</div>
+    <div class="stat"><strong>Тарих</strong>Ғасырлық ескерткіштер</div>
+    <div class="stat"><strong>Мұра</strong>Киелі орындар мен дәстүр</div>
+  </div>
+</section>
+
+<section id="places">
+  <div class="kicker">Зерттеу бағыты</div>
+  <h2>Өлкенің ерекше мекендері</h2>
+  <p class="intro">Табиғи көріністерден тарихи орындарға дейін Маңғыстаудың байлығын ашыңыз.</p>
+  <input class="search" id="search" type="search" placeholder="Мекен атауын іздеу..." aria-label="Мекен атауын іздеу">
+  <div class="filters">
+    <button class="active" data-filter="all">Барлығы</button>
+    <button data-filter="nature">Табиғат</button>
+    <button data-filter="history">Тарихи орындар</button>
+    <button data-filter="sacred">Киелі мекендер</button>
+  </div>
+  <div class="grid" id="placesGrid">
+    <article class="place" data-category="nature">
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80" alt="Таулы табиғат көрінісі" loading="lazy">
+      <div class="place-body"><div class="tag">Табиғат</div><h3>Бозжыра</h3><p>Үстірттің ақ жартастары мен ерекше геологиялық бедерімен танылған көрікті мекен.</p></div>
+    </article>
+    <article class="place" data-category="nature">
+      <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80" alt="Шөл ландшафты" loading="lazy">
+      <div class="place-body"><div class="tag">Табиғат</div><h3>Қызылқұп</h3><p>Түрлі түсті қабаттарымен назар аударатын ерекше табиғи ландшафт.</p></div>
+    </article>
+    <article class="place" data-category="nature">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80" alt="Тау шыңдары" loading="lazy">
+      <div class="place-body"><div class="tag">Табиғат</div><h3>Боқты тауы</h3><p>Пішіні мен табиғи құрылымы өлкенің геологиялық ерекшелігін танытатын тау.</p></div>
+    </article>
+    <article class="place" data-category="nature">
+      <img src="https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=900&q=80" alt="Жартасты ландшафт" loading="lazy">
+      <div class="place-body"><div class="tag">Табиғат</div><h3>Шерқала</h3><p>Ерекше пішінімен көзге түсетін, Маңғыстау табиғатының танымал нысандарының бірі.</p></div>
+    </article>
+    <article class="place" data-category="nature">
+      <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80" alt="Табиғи кеңістік" loading="lazy">
+      <div class="place-body"><div class="tag">Табиғат</div><h3>Торыш</h3><p>Шар тәрізді тас түзілімдерімен белгілі алқап. Геологияны зерттеуге қызықты орын.</p></div>
+    </article>
+    <article class="place" data-category="sacred">
+      <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="Сәулет ескерткіші" loading="lazy">
+      <div class="place-body"><div class="tag">Киелі мұра</div><h3>Бекет ата</h3><p>Маңғыстаудың рухани тарихымен байланысты маңызды жерасты мешіттері мен зиярат орны.</p></div>
+    </article>
+    <article class="place" data-category="sacred">
+      <img src="https://images.unsplash.com/photo-1604580864964-e2e9c8a9f6c4?auto=format&fit=crop&w=900&q=80" alt="Ежелгі тас құрылыс" loading="lazy">
+      <div class="place-body"><div class="tag">Киелі мұра</div><h3>Шопан ата</h3><p>Жерасты мешіті мен тарихи қорымы арқылы танылған киелі орын.</p></div>
+    </article>
+    <article class="place" data-category="history">
+      <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80" alt="Тарихи сәулет" loading="lazy">
+      <div class="place-body"><div class="tag">Тарих</div><h3>Маңғыстау қорымдары</h3><p>Құлпытастар мен сағанатамдар халықтың тарихы, өнері және дүниетанымы туралы дерек береді.</p></div>
+    </article>
+    <article class="place" data-category="history">
+      <img src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80" alt="Тарихи музей экспозициясы" loading="lazy">
+      <div class="place-body"><div class="tag">Тарих</div><h3>Өлкетану мұрасы</h3><p>Археологиялық олжалар, тарихи құжаттар мен дәстүрлер өңірдің өткенін зерттеуге көмектеседі.</p></div>
+    </article>
+  </div>
+  <p id="empty" hidden>Іздеуге сәйкес мекен табылмады.</p>
+</section>
+
+<section id="heritage" class="about">
+  <div>
+    <div class="kicker">Өткеннен аманат</div>
+    <h2>Тарихты сақтау — болашаққа жол</h2>
+    <p>Маңғыстаудың мұрасы табиғатпен ғана шектелмейді. Бұл — сәулет өнері, жерасты мешіттері, қорымдар, аңыздар, шежірелер және ұрпақтан ұрпаққа жалғасқан мәдени жады.</p>
+    <p>Әрбір нысан туралы мәліметті сенімді дереккөздермен салыстырып, жергілікті өлкетану материалдарымен толықтыру маңызды.</p>
+    <a class="btn" href="#research">Зерттеу мақсатын оқу</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=85" alt="Сәулет пен мәдени мұра" loading="lazy">
+</section>
+
+<section id="research">
+  <div class="kicker">Ғылыми жоба</div>
+  <h2>Жобаның мақсаты мен міндеттері</h2>
+  <p class="intro">Маңғыстау облысының табиғи және тарихи-мәдени мұрасын цифрлық форматта таныстырып, оны зерттеуге және қорғауға қызығушылық қалыптастыру.</p>
+  <div class="features">
+    <div class="feature"><h3>01 · Зерттеу</h3><p>Өлкенің көрікті және киелі орындары туралы деректерді жинау, салыстыру және жүйелеу.</p></div>
+    <div class="feature"><h3>02 · Цифрландыру</h3><p>Ақпаратты интерактивті веб-сайтта карта, мәтін және фотоматериал арқылы ұсыну.</p></div>
+    <div class="feature"><h3>03 · Насихаттау</h3><p>Жас ұрпақтың туған өлке тарихына қызығушылығын арттыру және мұраны қорғауға үндеу.</p></div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="kicker">Саяхат бағыты</div>
+  <h2>Маңғыстау картасын зерттеу</h2>
+  <div class="mapbox">
+    <p>Картадан өңірдің табиғи және тарихи нысандарын қарауға болады. Нақты координаттар мен маршрутты сапар алдында ресми карталар арқылы тексеріңіз.</p>
+    <a class="maplink" href="https://www.google.com/maps/search/Mangystau+Region+Kazakhstan/" target="_blank" rel="noopener">Google Maps картасын ашу ↗</a>
+  </div>
+</section>
+
+<footer>
+  <div><strong>MANGYSTAU HERITAGE</strong><p>Маңғыстау мұрасы — ұрпаққа аманат</p></div>
+  <div><p>Ғылыми-зерттеу жобасы · Қазақстан</p><p>Ақпаратты сенімді дереккөздермен толықтырыңыз.</p></div>
+</footer>
+
+<script>
+const buttons = document.querySelectorAll('[data-filter]');
+const cards = document.querySelectorAll('.place');
+const search = document.getElementById('search');
+const empty = document.getElementById('empty');
+let category = 'all';
+function updateCards() {
+  const query = search.value.toLocaleLowerCase('kk-KZ').trim();
+  let visible = 0;
+  cards.forEach(card => {
+    const matchesCategory = category === 'all' || card.dataset.category === category;
+    const matchesText = card.innerText.toLocaleLowerCase('kk-KZ').includes(query);
+    const show = matchesCategory && matchesText;
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  empty.hidden = visible > 0;
+}
+buttons.forEach(button => button.addEventListener('click', () => {
+  category = button.dataset.filter;
+  buttons.forEach(b => b.classList.toggle('active', b === button));
+  updateCards();
+}));
+search.addEventListener('input', updateCards);
+</script>
 </body>
 </html>
