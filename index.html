@@ -3,77 +3,65 @@
 <head>
 <style>
   :root {
-    --brown: #4A2E1F;
-    --dark-brown: #352014;
+    --brown: #3B2418;
+    --dark-brown: #28170F;
+    --cream: #F5E6CC;
     --white: #FFFFFF;
-    --black: #171717;
-    --light-border: #E2E2E2;
   }
 
   body {
-    background-color: #4A2E1F;
-    color: #171717;
+    background-color: var(--brown);
+    color: var(--cream);
   }
 
   header,
   nav,
   .navbar,
   footer {
-    background-color: #352014;
-    color: #FFFFFF;
+    background-color: var(--dark-brown);
+    color: var(--cream);
   }
 
-  main,
-  section,
-  .card,
-  .place-card,
-  .tour-card,
-  .modal {
-    background-color: #FFFFFF;
-    color: #171717;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    color: #171717;
-  }
-
+  h1, h2, h3, h4, h5, h6,
   p, li, small, label, span {
-    color: #171717;
+    color: var(--cream);
   }
 
   a {
-    color: inherit;
-  }
-
-  button,
-  .btn,
-  .button {
-    background-color: #4A2E1F;
-    color: #FFFFFF;
-    border: 1px solid #4A2E1F;
-    border-radius: 8px;
-  }
-
-  button:hover,
-  .btn:hover,
-  .button:hover {
-    background-color: #68452F;
-  }
-
-  input,
-  textarea,
-  select {
-    background-color: #FFFFFF;
-    color: #171717;
-    border: 1px solid #BFBFBF;
+    color: var(--cream);
   }
 
   .card,
   .place-card,
-  .tour-card {
-    border: 1px solid #E2E2E2;
+  .tour-card,
+  main section {
+    background-color: var(--white);
+    color: #3B2418;
+    border: 1px solid #E3D4C0;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .card h1, .card h2, .card h3,
+  .card p, .card span,
+  .place-card h2, .place-card h3,
+  .place-card p,
+  .tour-card h2, .tour-card h3,
+  .tour-card p {
+    color: #3B2418;
+  }
+
+  button, .btn, .button {
+    background-color: var(--dark-brown);
+    color: var(--cream);
+    border: 1px solid var(--cream);
+    border-radius: 8px;
+  }
+
+  input, textarea, select {
+    background-color: var(--white);
+    color: #3B2418;
+    border: 1px solid #D8C4AA;
   }
 </style>
 
