@@ -2,78 +2,50 @@
 <html lang="kk">
 <head>
 <style>
-  :root {
-    --bg-color: #F3E8D8;
-    --card-color: #FFF9F0;
-    --primary-color: #593B28;
-    --accent-color: #89603E;
-    --text-color: #3B2B20;
-    --muted-color: #6D5847;
-    --border-color: #D8C2A8;
-  }
-
+  /* Сайттың негізгі фоны */
   body {
-    background: var(--bg-color);
-    color: var(--text-color);
+    background-color: #6B4933;
   }
 
-  header, nav, .navbar {
-    background: var(--primary-color);
-    color: #FFF9F0;
+  /* Карточкалар мен бөлімдердің фоны */
+  .card,
+  .place-card,
+  .tour-card,
+  section {
+    background-color: #F2E6D6;
+    border-radius: 12px;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--primary-color);
+  /* Көк түсті сөздер бұрынғы түсінде қалсын */
+  a,
+  h1,
+  h2,
+  h3,
+  .blue,
+  .text-blue {
+    color: #2676B8;
   }
 
-  p, li, small, label, span, figcaption {
-    color: var(--text-color);
+  /* Ұсақ мәтіндер қара және кішірек болсын */
+  small,
+  .description,
+  .subtitle,
+  .caption,
+  .meta,
+  figcaption {
+    color: #222222;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
-  .description, .subtitle, .muted, .meta, .caption {
-    color: var(--muted-color);
-  }
-
-  .card, .place-card, .tour-card {
-    background: var(--card-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(89, 59, 40, 0.10);
-  }
-
-  button, .btn, .button {
-    background: var(--accent-color);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-  }
-
-  a {
-    color: #704727;
-  }
-
-  input, textarea, select {
-    background: #FFFDF9;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: #796552;
-    opacity: 1;
-  }
-
-  footer {
-    background: #493020;
-    color: #F3E8D8;
-  }
-
-  footer p, footer small, footer span {
-    color: #F3E8D8;
+  /* Карточкалардың ішіндегі негізгі мәтін */
+  .card p,
+  .place-card p,
+  .tour-card p {
+    color: #222222;
   }
 </style>
+
 
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#163b35"><meta name="description" content="MANGYSTAU HERITAGE — Маңғыстаудың табиғи және тарихи мұрасы, карта, маршруттар және турлар.">
