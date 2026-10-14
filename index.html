@@ -21,7 +21,149 @@
 <section id="routes"><div class="wrap"><div class="section-head"><div><div class="kicker" data-i="routesKicker">САПАРДЫ ЖОСПАРЛА</div><h2 data-i="routesTitle">Дайын маршруттар</h2></div><p data-i="routesIntro">Төмендегі бағыттар — жоспарлауға арналған үлгілер. Жол уақыты мен өту мүмкіндігін сапар алдында нақтыла.</p></div><div class="route-grid" id="routeCards"></div></div></section>
 <section id="tours" style="background:#eeece3"><div class="wrap"><div class="section-head"><div><div class="kicker" data-i="toursKicker">ҰЙЫМДАСТЫРЫЛҒАН САПАРЛАР</div><h2 data-i="toursTitle">Турлар мен бағалар</h2></div><p data-i="toursIntro">Бағалар ұйымдастырушының жариялаған ұсыныстарынан алынған мысалдар. Күні, бос орындары және қазіргі бағасы ұйымдастырушымен расталуы тиіс.</p></div><div class="filters"><select id="tourType" class="field"><option value="all" data-i="allTours">Барлық турлар</option><option value="bus" data-i="busTours">Автобус турлары</option><option value="jeep" data-i="jeepTours">Жеке джип турлары</option></select></div><div class="tour-grid" id="tourCards"></div><div class="section-head" style="margin-top:48px;margin-bottom:18px"><div><div class="kicker" data-i="organizersKicker">ЖЕРГІЛІКТІ ҰЙЫМДАСТЫРУШЫЛАР</div><h2 style="font-size:30px" data-i="organizersTitle">Тур ұйымдастырушылар</h2></div></div><div class="cards" id="organizerCards"></div><p class="small-note" data-i="tourDisclaimer">Бұл сайт турларды салыстыруға көмектесетін ақпараттық каталог. Брондау, төлем және сапар шарттарын тікелей ұйымдастырушымен растаңыз. Instagram сілтемесі ресми екені тексерілмесе, көрсетілмейді.</p></div></section>
 <section class="preserve" id="preserve"><div class="wrap preserve-layout"><div><div class="kicker" data-i="preserveKicker">ЖАУАПТЫ САЯХАТ</div><h2 data-i="preserveTitle">Мұраны бірге сақтайық!</h2><p data-i="preserveIntro">Маңғыстаудың табиғи ғажайыптары мен тарихи ескерткіштері келер ұрпаққа да жетуі үшін әр саяхатшы жауапкершілікпен әрекет ете алады.</p><p class="small-note" data-i="checklistNote">Ережелерді белгілеп, сапар алдында өзіңе қысқаша еске салғыш жаса.</p></div><div class="rule-list" id="rulesList"></div></div></section>
-<section id="project"><div class="wrap"><div class="section-head"><div><div class="kicker" data-i="projectKicker">ҒЫЛЫМИ ЖОБА</div><h2 data-i="projectTitle">Цифрлық мұра — болашаққа аманат</h2></div><p data-i="projectIntro">Жоба Маңғыстаудың табиғи және тарихи мұрасын бір ортаға жинақтап, жауапты туризм мәдениетін дамытуға бағытталған.</p></div><div class="project-grid"><div class="project-item"><strong data-i="goalTitle">Мақсаты</strong><p data-i="goalText">Өлкенің туристік және мәдени-тарихи нысандары туралы ақпаратты қолжетімді цифрлық ортада ұсыну.</p></div><div class="project-item"><strong data-i="methodsTitle">Зерттеу тәсілдері</strong><p data-i="methodsText">Ашық дереккөздерді салыстыру, картографиялық мәліметтерді тексеру және туристік ақпаратты жүйелеу.</p></div><div class="project-item"><strong data-i="resultTitle">Күтілетін нәтиже</strong><p data-i="resultText">Туристерге арналған екітілді энциклопедия, маршруттар картасы және мұраны қорғау жөніндегі нұсқаулық.</p></div></div></div></section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">ҒЫЛЫМИ ЗЕРТТЕУ</div>
+        <h2>Маңғыстаудың тарихи-мәдени мұрасын цифрлық сақтау платформасы</h2>
+      </div>
+      <p>
+        Маңғыстау облысының тарихи ескерткіштері, киелі орындары
+        және табиғи байлықтары туралы ақпаратты жинақтап,
+        цифрлық форматта таныстыруға арналған ғылыми жоба.
+      </p>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-item">
+        <strong>Жоба авторы</strong>
+        <p>Аскаров Бекасыл</p>
+      </div>
+      <div class="project-item">
+        <strong>Ғылыми жетекші</strong>
+        <p>Каракулова Акмарал</p>
+      </div>
+      <div class="project-item">
+        <strong>Мектеп</strong>
+        <p>«№15 жалпы білім беретін мектеп» КММ</p>
+      </div>
+      <div class="project-item">
+        <strong>Жоба жылы</strong>
+        <p>2026 жыл</p>
+      </div>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-item">
+        <strong>1. Тақырыптың өзектілігі</strong>
+        <p>
+          Маңғыстау — тарихи-мәдени ескерткіштерге, жерасты мешіттеріне,
+          көне қорымдарға және ерекше табиғи нысандарға бай өңір.
+          Осы нысандар туралы сенімді ақпаратты бір цифрлық ортада
+          жинақтау өлкетануды дамытуға және мұраны келешек ұрпаққа
+          таныстыруға мүмкіндік береді.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>2. Зерттеудің мақсаты</strong>
+        <p>
+          Маңғыстаудың тарихи-мәдени және табиғи мұрасы туралы
+          мәліметтерді жүйелеп, көпшілікке қолжетімді ететін
+          цифрлық веб-платформа әзірлеу.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>3. Зерттеудің міндеттері</strong>
+        <p>
+          Өңірдегі маңызды мұра нысандарын анықтау; сенімді
+          дереккөздерді жинау; мәліметтерді салыстыру және жіктеу;
+          веб-платформа құру; ақпараттың қолайлылығы мен дұрыстығын тексеру.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>4. Зерттеу әдістері</strong>
+        <p>
+          Ақпарат іздеу, салыстырмалы талдау, деректерді жіктеу,
+          картографиялық мәліметтерді қарастыру, веб-жобалау
+          және сайтты сынақтан өткізу әдістері.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>5. Зерттеу мәселесі</strong>
+        <p>
+          Маңғыстаудың тарихи-мәдени мұрасы туралы шашыраңқы
+          ақпаратты қалайша бір ортаға жинап, сенімді әрі
+          түсінікті цифрлық форматта ұсынуға болады?
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>6. Авторлық талдау</strong>
+        <p>
+          Платформада нысандарды жеке карточкалар арқылы таныстыру,
+          орналасуын картадан қарау және дереккөздерін көрсету
+          тәсілі қарастырылды. Бұл ақпаратты ретімен қабылдауға
+          және қажетті мәліметті табуға көмектеседі.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>7. Зерттеу нәтижесі</strong>
+        <p>
+          Маңғыстау мұрасын цифрлық форматта таныстыруға арналған
+          веб-платформа үлгісі ұсынылды. Жобаның нәтижесі сайттың
+          жұмысын тексеру, ақпараттың дұрыстығын салыстыру және
+          пайдаланушыға қолайлылығын бағалау арқылы нақтыланады.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>8. Практикалық маңызы</strong>
+        <p>
+          Платформаны өлкетану сабақтарында, мектептегі ғылыми
+          жобаларда, туристік орындарды зерттеуде және туған өлкенің
+          мәдени мұрасын насихаттауда пайдалануға болады.
+        </p>
+      </div>
+
+      <div class="project-item">
+        <strong>9. Қорытынды</strong>
+        <p>
+          Цифрлық платформа өңірдің тарихи-мәдени және табиғи мұрасы
+          туралы мәліметтерді жүйелеп, оларды көпшілікке таныстыруға
+          мүмкіндік береді. Платформаны дамыту үшін ақпаратты
+          сенімді дереккөздермен толықтырып, үнемі тексеріп отыру қажет.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-item" style="margin-top:18px">
+      <strong>Пайдаланылған ақпарат көздері</strong>
+      <p>
+        Қазақстанның ұлттық электронды кітапханасы —
+        <a href="https://kazneb.kz/" target="_blank" rel="noopener">kazneb.kz</a>
+      </p>
+      <p>
+        UNESCO World Heritage Centre —
+        <a href="https://whc.unesco.org/" target="_blank" rel="noopener">whc.unesco.org</a>
+      </p>
+      <p>
+        Қазақстанның ресми порталы —
+        <a href="https://www.gov.kz/" target="_blank" rel="noopener">gov.kz</a>
+      </p>
+      <p>
+        Ескерту: ғылыми жұмыста нақты пайдаланылған материалдардың
+        атауы мен авторын әдебиеттер тізіміне бөлек енгізу қажет.
+      </p>
+    </div>
+  </div>
+</section>
 <section id="sources"><div class="wrap"><div class="section-head"><div><div class="kicker" data-i="sourcesKicker">ТЕКСЕРІЛЕТІН АҚПАРАТ</div><h2 data-i="sourcesTitle">Дереккөздер</h2></div><p data-i="sourcesIntro">Маңызды тарихи, табиғи және туристік мәліметтерді бастапқы дереккөздерден тексер. Wikipedia — бастапқы бағдар, жалғыз дәлел емес.</p></div><div class="sources"><div class="source-card"><strong>Wikimedia Commons</strong><a href="https://commons.wikimedia.org/wiki/Category:Nature_of_Mangystau_Region" target="_blank" rel="noopener">Маңғыстау фотосуреттері ↗</a><p data-i="sourcePhotos">Сурет авторы мен лицензиясын әр файлдың бетінде тексер.</p></div><div class="source-card"><strong>UNESCO World Heritage</strong><a href="https://whc.unesco.org/" target="_blank" rel="noopener">Ресми дүниежүзілік мұра сайты ↗</a><p data-i="sourceUnesco">Әлемдік мұра нысандары және ресми сипаттамалар.</p></div><div class="source-card"><strong>Қазақстанның ресми порталы</strong><a href="https://www.gov.kz/" target="_blank" rel="noopener">gov.kz ↗</a><p data-i="sourceGov">Мемлекеттік органдардың ресми ақпараттары.</p></div><div class="source-card"><strong>Қазақстан Travel</strong><a href="https://kazakhstan.travel/" target="_blank" rel="noopener">kazakhstan.travel ↗</a><p data-i="sourceTravel">Туристік бағыттар туралы ақпарат.</p></div><div class="source-card"><strong>OpenStreetMap</strong><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">Карта ↗</a><p data-i="sourceMap">Карта деректері мен географиялық нүктелер.</p></div><div class="source-card"><strong>Әділет</strong><a href="https://adilet.zan.kz/" target="_blank" rel="noopener">Қазақстан заңнамасы ↗</a><p data-i="sourceLaw">Құқықтық талаптарды тексеруге арналған ресурс.</p></div></div></div></section>
 </main><footer class="footer"><div class="wrap footer-inner"><div><strong>MANGYSTAU HERITAGE</strong><br><small data-i="footerLine">Өлкені таны. Сапарыңды жоспарла. Мұраны бірге сақта.</small></div><small>© <span id="year"></span> MANGYSTAU HERITAGE · <a href="#sources" style="color:#e9c89c" data-i="footerSources">Дереккөздер</a></small></div></footer>
 <div class="modal" id="placeModal" role="dialog" aria-modal="true"><div class="modal-box"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalContent"></div></div></div>
