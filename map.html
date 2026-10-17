@@ -1,51 +1,359 @@
 
-<section class="heritage-map-section">
-  <h2>Маңғыстаудың барлық тарихи орындары</h2>
-  <p>
-    Жерасты мешіттері, қорымдар, кесенелер және
-    тарихи-мәдени мұра нысандарын интерактивті картадан қараңыз.
-  </p>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#211914">
+<title>MANGYSTAU HERITAGE | Интерактивті карта</title>
 
-  <div class="heritage-map">
-    <iframe
-      src="https://mangystau.inmap.kz/kz/"
-      title="Маңғыстаудың тарихи-мәдени орындарының картасы"
-      loading="lazy"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <a
-    class="map-link"
-    href="https://mangystau.inmap.kz/kz/"
-    target="_blank"
-    rel="noopener noreferrer">
-    Ресми картаны толық ашу ↗
-  </a>
-</section>
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
-.heritage-map-section {
-  padding: 32px 16px;
-  color: #f5eee5;
-  background: #241810;
-  border-radius: 20px;
+:root {
+  --bg:#211914;
+  --panel:#30241d;
+  --gold:#d9ad72;
+  --text:#f8efe5;
+  --muted:#c8b8a8;
+  --line:#594438;
+  --blue:#8ecbff;
 }
-.heritage-map {
-  width: 100%;
-  height: 650px;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #38291f;
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-.heritage-map iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+a{color:var(--blue)}
+header{
+  padding:30px 5%;
+  background:linear-gradient(135deg,#211914,#493225);
+  border-bottom:1px solid var(--line);
 }
-.map-link {
-  display: inline-block;
-  margin-top: 18px;
-  color: #8ecbff;
+.brand{
+  color:var(--gold);letter-spacing:4px;
+  font-size:12px;font-weight:bold;
+}
+h1{font-size:clamp(28px,4vw,46px);margin:12px 0}
+header p{color:var(--muted);line-height:1.7;max-width:750px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{
+  display:inline-block;padding:12px 17px;border-radius:10px;
+  background:var(--gold);color:#211914;text-decoration:none;
+  font-weight:bold;border:1px solid var(--gold);
+}
+.btn.secondary{background:transparent;color:var(--text)}
+main{max-width:1500px;margin:auto;padding:22px}
+.toolbar{
+  display:grid;grid-template-columns:1fr auto;gap:12px;
+  margin-bottom:16px;
+}
+input,select{
+  width:100%;padding:13px;border-radius:10px;
+  border:1px solid var(--line);background:var(--panel);
+  color:var(--text);font-size:15px;
+}
+.content{
+  display:grid;grid-template-columns:330px minmax(0,1fr);
+  gap:16px;
+}
+.panel,.mapbox{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;min-width:0;
+}
+.panel{padding:16px}
+.panel h2{font-size:18px;margin:4px 0 14px}
+#results{display:flex;flex-direction:column;gap:9px}
+.place{
+  display:block;width:100%;text-align:left;padding:13px;
+  background:#261d17;color:var(--text);
+  border:1px solid var(--line);border-radius:10px;cursor:pointer;
+}
+.place:hover{border-color:var(--gold);background:#392a20}
+.place strong{display:block;margin-bottom:7px;font-size:14px}
+.place small{display:block;color:var(--muted);line-height:1.5}
+.place .coords{color:var(--gold);margin-top:5px}
+#count{font-size:13px;color:var(--muted);margin:12px 0}
+.mapheading{
+  display:flex;justify-content:space-between;gap:10px;
+  align-items:center;flex-wrap:wrap;padding:15px;
+  border-bottom:1px solid var(--line);
+}
+.mapheading span{font-size:12px;color:var(--muted)}
+#map{height:690px;width:100%;background:#d6c8b5}
+footer{
+  max-width:1500px;margin:auto;padding:0 22px 25px;
+  color:var(--muted);font-size:13px;line-height:1.8;
+}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{
+  background:#30241d;color:#f8efe5;
+}
+.leaflet-popup-content{line-height:1.7}
+.popup-title{font-weight:bold;font-size:16px}
+.popup-coord{color:#e7b978;font-size:12px}
+@media(max-width:850px){
+  header{padding:24px 18px}
+  main{padding:12px}
+  .content{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr}
+  #map{height:55vh;min-height:390px}
+  #results{max-height:350px;overflow:auto}
+  footer{padding:0 14px 20px}
 }
 </style>
+</head>
+
+<body>
+<header>
+  <div class="brand">MANGYSTAU HERITAGE</div>
+  <h1>Маңғыстаудың интерактивті картасы</h1>
+  <p>
+    Маңғыстаудың табиғи ғажайыптарын, тарихи ескерткіштерін
+    және киелі орындарын бір картадан зерттеңіз.
+    Нысанды таңдап, координаттарын көріңіз және картадан ашыңыз.
+  </p>
+  <div class="actions">
+    <a class="btn" href="https://mangystau.inmap.kz/kz/"
+       target="_blank" rel="noopener noreferrer">
+      ↗ Ресми Маңғыстау картасы
+    </a>
+    <a class="btn secondary" href="index.html">← Басты бет</a>
+  </div>
+</header>
+
+<main>
+  <div class="toolbar">
+    <input id="search" type="search"
+      placeholder="🔎 Нысан атауын іздеу..."
+      aria-label="Нысан атауын іздеу">
+    <select id="category" aria-label="Нысан санаты">
+      <option value="all">Барлық санат</option>
+      <option value="nature">🏜 Табиғи орындар</option>
+      <option value="sacred">🕌 Киелі орындар</option>
+      <option value="history">🏛 Тарихи орындар</option>
+    </select>
+  </div>
+
+  <div class="content">
+    <aside class="panel">
+      <h2>Зерттеу нүктелері</h2>
+      <div id="count">Нысандар жүктелуде...</div>
+      <div id="results"></div>
+    </aside>
+
+    <section class="mapbox">
+      <div class="mapheading">
+        <strong>Маңғыстау облысы · карта</strong>
+        <span>Белгішені басып, координаттарды көріңіз</span>
+      </div>
+      <div id="map"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  Карта OpenStreetMap негізінде жасалған.
+  Координаттар нысанды бастапқы бағдарлау үшін берілген;
+  алыс сапар алдында олардың дәлдігін және жол жағдайын тексеріңіз.
+  Киелі орындар мен тарихи ескерткіштерге құрметпен қараңыз.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/*
+  ЕСКЕРТУ:
+  Төмендегі координаттар бастапқы бағдарлау нүктелері.
+  Жария ғылыми немесе туристік материалда пайдаланбас бұрын
+  әр нүктені ресми картадан жеке тексеріп алыңыз.
+*/
+const places = [
+  {
+    name:"Бозжыра шатқалы",
+    lat:43.4100, lon:53.9000,
+    category:"nature",
+    description:"Үстірттің ақ жартастары мен ерекше бедері."
+  },
+  {
+    name:"Шерқала тауы",
+    lat:44.1680, lon:52.0060,
+    category:"nature",
+    description:"Маңғыстаудың ерекше пішінді оқшау тауы."
+  },
+  {
+    name:"Қызылқұп",
+    lat:43.5700, lon:52.7000,
+    category:"nature",
+    description:"Түрлі түсті жыныс қабаттарымен ерекшеленетін ландшафт."
+  },
+  {
+    name:"Боқты тауы",
+    lat:43.5200, lon:52.6800,
+    category:"nature",
+    description:"Маңғыстаудың көрнекті геологиялық нысандарының бірі."
+  },
+  {
+    name:"Торыш — шар тәрізді тастар алқабы",
+    lat:44.4300, lon:52.7300,
+    category:"nature",
+    description:"Домалақ тас түзілімдерімен белгілі табиғи алқап."
+  },
+  {
+    name:"Айрақты — Шоманай таулары",
+    lat:44.1000, lon:52.1000,
+    category:"nature",
+    description:"Ерекше жартас пішіндері бар тау сілемі."
+  },
+  {
+    name:"Шақпақ ата жерасты мешіті",
+    lat:44.4400, lon:51.1700,
+    category:"sacred",
+    description:"Жартасты қашау арқылы жасалған тарихи-діни ескерткіш."
+  },
+  {
+    name:"Бекет ата жерасты мешіті",
+    lat:43.5930, lon:53.9300,
+    category:"sacred",
+    description:"Оғландыдағы маңызды зиярат орны."
+  },
+  {
+    name:"Шопан ата жерасты мешіті",
+    lat:43.5200, lon:53.3500,
+    category:"sacred",
+    description:"Жерасты мешіті мен тарихи қорым кешені."
+  },
+  {
+    name:"Қараман ата жерасты мешіті",
+    lat:43.7000, lon:52.6000,
+    category:"sacred",
+    description:"Маңғыстаудың жерасты мешіттері қатарына жататын орын."
+  },
+  {
+    name:"Сұлтан-епе қорымы",
+    lat:44.5000, lon:51.6000,
+    category:"sacred",
+    description:"Тарихи қорым және зиярат орны."
+  },
+  {
+    name:"Қызылқала қалашығы",
+    lat:43.6500, lon:51.2500,
+    category:"history",
+    description:"Археологиялық зерттеулермен байланысты ортағасырлық қоныс."
+  },
+  {
+    name:"Ақтау қаласы",
+    lat:43.6532, lon:51.1975,
+    category:"history",
+    description:"Маңғыстау облысының әкімшілік орталығы."
+  },
+  {
+    name:"Форт-Шевченко қаласы",
+    lat:44.5070, lon:50.2630,
+    category:"history",
+    description:"Каспий жағалауындағы тарихи қала."
+  }
+];
+
+const map = L.map("map").setView([43.9,52.0],7);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  maxZoom:19,
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+const layer = L.featureGroup().addTo(map);
+const markerByName = new Map();
+
+function googleMapsUrl(p){
+  return "https://www.google.com/maps?q="+p.lat+","+p.lon;
+}
+function yandexMapsUrl(p){
+  return "https://yandex.com/maps/?pt="+p.lon+","+p.lat+"&z=12";
+}
+function coordinateText(p){
+  return p.lat.toFixed(5)+", "+p.lon.toFixed(5);
+}
+function popupContent(p){
+  const box=document.createElement("div");
+  const title=document.createElement("div");
+  title.className="popup-title";
+  title.textContent=p.name;
+  const desc=document.createElement("div");
+  desc.textContent=p.description;
+  const coord=document.createElement("div");
+  coord.className="popup-coord";
+  coord.textContent="Координаттары: "+coordinateText(p);
+  const google=document.createElement("a");
+  google.href=googleMapsUrl(p);
+  google.target="_blank";
+  google.rel="noopener noreferrer";
+  google.textContent="Google Maps-та ашу ↗";
+  const yandex=document.createElement("a");
+  yandex.href=yandexMapsUrl(p);
+  yandex.target="_blank";
+  yandex.rel="noopener noreferrer";
+  yandex.textContent="Yandex Maps ↗";
+  box.append(title,desc,coord,google,document.createElement("br"),yandex);
+  return box;
+}
+
+places.forEach(p=>{
+  if(!Number.isFinite(p.lat)||!Number.isFinite(p.lon)) return;
+  const marker=L.marker([p.lat,p.lon]).bindPopup(popupContent(p));
+  markerByName.set(p.name,marker);
+});
+
+function render(){
+  const query=document.getElementById("search").value.trim().toLocaleLowerCase();
+  const category=document.getElementById("category").value;
+  const visible=places.filter(p=>
+    (category==="all"||p.category===category)&&
+    (p.name+" "+p.description).toLocaleLowerCase().includes(query)
+  );
+  layer.clearLayers();
+  const results=document.getElementById("results");
+  results.replaceChildren();
+
+  visible.forEach(p=>{
+    const marker=markerByName.get(p.name);
+    if(marker) marker.addTo(layer);
+
+    const button=document.createElement("button");
+    button.className="place";
+    button.type="button";
+
+    const title=document.createElement("strong");
+    title.textContent=p.name;
+
+    const desc=document.createElement("small");
+    desc.textContent=p.description;
+
+    const coord=document.createElement("small");
+    coord.className="coords";
+    coord.textContent=coordinateText(p);
+
+    button.append(title,desc,coord);
+    button.addEventListener("click",()=>{
+      map.setView([p.lat,p.lon],11,{animate:true});
+      if(marker) marker.openPopup();
+      if(window.innerWidth<850){
+        document.getElementById("map").scrollIntoView({
+          behavior:"smooth",block:"start"
+        });
+      }
+    });
+    results.appendChild(button);
+  });
+
+  document.getElementById("count").textContent=
+    "Көрсетілген нысан: "+visible.length+" / "+places.length;
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("category").addEventListener("change",render);
+render();
+
+setTimeout(()=>map.invalidateSize(),300);
+</script>
+</body>
+</html>
