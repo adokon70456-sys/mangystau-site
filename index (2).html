@@ -217,4 +217,264 @@ function renderRules(){const rules=tr('rules');document.getElementById('rulesLis
 let map=null,markers={};function initMap(){if(!window.L){document.getElementById('map').innerHTML='<p style="padding:24px">Map library did not load. Please check your internet connection.</p>';return}map=L.map('map').setView([43.85,53.0],7);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);allPlaces().forEach(p=>{if(typeof p.lat!=='number'||typeof p.lon!=='number')return;const m=L.marker([p.lat,p.lon]).addTo(map).bindPopup(`<strong>${esc(currentName(p))}</strong><br>${esc(currentDesc(p).slice(0,150))}…<br><a href="${esc(p.maps)}" target="_blank" rel="noopener">${esc(tr('mapLink'))}</a>`);markers[p.id]=m});renderMapList();setTimeout(()=>map.invalidateSize(),200)}function renderMapList(){const q=(document.getElementById('mapSearch')?.value||'').toLowerCase().trim();const arr=allPlaces().filter(p=>(p.kk+' '+p.en).toLowerCase().includes(q));document.getElementById('mapList').innerHTML=arr.map(p=>`<button class="map-item" onclick="focusPlace('${esc(p.id)}')"><strong>${esc(currentName(p))}</strong><span>${esc(categoryName(p.cat))}</span></button>`).join('')}function focusPlace(id){const p=allPlaces().find(x=>x.id===id);if(!p||!map)return;map.setView([p.lat,p.lon],10);if(markers[id])markers[id].openPopup()}
 function saveCustom(){localStorage.setItem('mh-custom-places',JSON.stringify(customPlaces))}document.getElementById('adminToggle').addEventListener('click',()=>{const p=document.getElementById('adminPanel');p.classList.toggle('open');document.getElementById('adminToggle').textContent=p.classList.contains('open')?(lang==='kk'?'Редакторды жабу':'Close editor'):tr('editorBtn')});document.getElementById('addPlaceBtn').addEventListener('click',()=>{const kk=document.getElementById('adminNameKk').value.trim(),en=document.getElementById('adminNameEn').value.trim(),img=document.getElementById('adminImage').value.trim(),cat=document.getElementById('adminCategory').value.trim()||'nature',dk=document.getElementById('adminDescKk').value.trim(),de=document.getElementById('adminDescEn').value.trim(),lat=Number(document.getElementById('adminLat').value),lon=Number(document.getElementById('adminLon').value);if(!kk||!en||!img||!dk||!de||!document.getElementById('adminLat').value||!document.getElementById('adminLon').value){alert(lang==='kk'?'Барлық негізгі өрісті, оның ішінде нақты координаттарды толтыр.':'Fill in all required fields, including verified coordinates.');return}customPlaces.push({id:'custom-'+Date.now(),kk,en,img,cat,descKk:dk,descEn:de,credit:'Admin-added image; verify source/license',lat,lon,maps:'https://www.google.com/maps'});saveCustom();renderPlaces();if(map){const p=customPlaces[customPlaces.length-1];markers[p.id]=L.marker([p.lat,p.lon]).addTo(map).bindPopup(esc(kk))}renderMapList();alert(lang==='kk'?'Орын осы браузерге сақталды.':'Place saved in this browser.');});document.getElementById('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(customPlaces,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mangystau-custom-places.json';a.click();URL.revokeObjectURL(a.href)});document.getElementById('importFile').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;const data=JSON.parse(await f.text());if(!Array.isArray(data))throw new Error('not array');customPlaces=data;saveCustom();renderPlaces();renderMapList();alert(lang==='kk'?'Импортталды. Картаны жаңарту үшін бетті қайта жүкте.':'Imported. Reload to refresh map markers.')}catch(err){alert(lang==='kk'?'JSON файлын оқу мүмкін болмады.':'Could not read JSON file.')}});
 document.getElementById('searchInput').addEventListener('input',renderPlaces);document.getElementById('categoryFilter').addEventListener('change',e=>{activeCat=e.target.value;renderPlaces()});document.getElementById('tourType').addEventListener('change',renderTours);document.getElementById('mapSearch').addEventListener('input',renderMapList);document.getElementById('langToggle').addEventListener('click',()=>{lang=lang==='kk'?'en':'kk';localStorage.setItem('mh-lang',lang);applyTranslations();if(map){Object.values(markers).forEach(m=>map.removeLayer(m));markers={};allPlaces().forEach(p=>{if(typeof p.lat!=='number')return;markers[p.id]=L.marker([p.lat,p.lon]).addTo(map).bindPopup(`<strong>${esc(currentName(p))}</strong><br>${esc(currentDesc(p).slice(0,150))}…<br><a href="${esc(p.maps)}" target="_blank">${esc(tr('mapLink'))}</a>`)});}});document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));document.getElementById('modalClose').addEventListener('click',()=>document.getElementById('placeModal').classList.remove('open'));document.getElementById('placeModal').addEventListener('click',e=>{if(e.target.id==='placeModal')e.currentTarget.classList.remove('open')});document.getElementById('year').textContent=new Date().getFullYear();applyTranslations();initMap();
+  /*
+MANGYSTAU HERITAGE — “Табиғат әлемі” бөлімін қосу коды
+Қолдану: бұл кодтың БАРЛЫҒЫН index.html файлының ең соңындағы JavaScript блогының ішіне,
+жабылатын script тегінің дәл алдына қой. index.html-ді толығымен алмастырма.
+*/
+(function addMangystauNatureSection() {
+  if (document.getElementById('nature-section')) return;
+
+  const nav = document.getElementById('navlinks');
+  const projectLink = nav && nav.querySelector('a[href="#research"]');
+  const preserveLink = nav && nav.querySelector('a[href="#preserve"]');
+  if (!nav || !document.getElementById('research')) {
+    console.warn('MANGYSTAU HERITAGE: nature section could not find the navigation or #research section.');
+    return;
+  }
+
+  const natureLink = document.createElement('a');
+  natureLink.href = '#nature-section';
+  natureLink.id = 'nature-nav-link';
+  natureLink.textContent = lang === 'kk' ? 'Табиғат әлемі' : 'Nature';
+  if (projectLink) nav.insertBefore(natureLink, projectLink);
+  else if (preserveLink) preserveLink.after(natureLink);
+  else nav.appendChild(natureLink);
+  natureLink.addEventListener('click', () => nav.classList.remove('open'));
+
+  const css = document.createElement('style');
+  css.id = 'mh-nature-styles';
+  css.textContent = `
+    #nature-section { background: #f0eee5; scroll-margin-top: 88px; }
+    #nature-section .nature-hero {
+      min-height: 340px; display:flex; align-items:center; overflow:hidden;
+      border-radius:22px; padding:clamp(24px,5vw,54px); color:#fff;
+      background-image:linear-gradient(90deg,rgba(18,49,43,.94) 0%,rgba(18,49,43,.72) 48%,rgba(18,49,43,.16) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra%20valley%2C%20Mangistau%2C%20Kazakhstan.jpg?width=1800');
+      background-position:center; background-size:cover; box-shadow:0 18px 42px #173f3818;
+    }
+    #nature-section .nature-hero-inner { max-width:630px; }
+    #nature-section .nature-hero .kicker { color:#f0c99a; }
+    #nature-section .nature-hero h3 { color:#fff; margin:12px 0; font-size:clamp(30px,4.5vw,48px); line-height:1.03; letter-spacing:-.04em; }
+    #nature-section .nature-hero p { max-width:570px; color:#f1f2ed; font-size:16px; line-height:1.8; }
+    #nature-section .nature-btn { display:inline-flex; margin-top:10px; padding:12px 17px; border-radius:999px; background:#d8894a; color:#192f29; text-decoration:none; font-weight:850; font-size:13px; border:0; cursor:pointer; }
+    #nature-section .nature-tools { display:grid; grid-template-columns:1fr; gap:13px; margin:25px 0 22px; }
+    #nature-section .nature-search { width:100%; padding:13px 15px; border:1px solid #d8d9cf; background:#fff; border-radius:12px; color:#202824; outline-color:#173f38; }
+    #nature-section .nature-filters { display:flex; gap:8px; flex-wrap:wrap; }
+    #nature-section .nature-filter { padding:9px 14px; border-radius:999px; border:1px solid #d5d8ce; background:#fff; color:#47544b; font-size:12px; font-weight:800; cursor:pointer; }
+    #nature-section .nature-filter.active, #nature-section .nature-filter:hover { background:#173f38; color:#fff; border-color:#173f38; }
+    #nature-section .nature-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    #nature-section .nature-card { min-width:0; display:flex; flex-direction:column; background:#fff; border:1px solid #dedfd6; border-radius:18px; overflow:hidden; box-shadow:0 16px 45px #203a2c0d; transition:transform .2s,box-shadow .2s; }
+    #nature-section .nature-card:hover { transform:translateY(-3px); box-shadow:0 20px 50px #203a2c18; }
+    #nature-section .nature-photo { height:205px; position:relative; background:#e2ded1; overflow:hidden; }
+    #nature-section .nature-photo img { width:100%; height:100%; display:block; object-fit:cover; transition:transform .4s; }
+    #nature-section .nature-card:hover .nature-photo img { transform:scale(1.035); }
+    #nature-section .nature-tag { position:absolute; left:12px; top:12px; border-radius:999px; padding:6px 10px; background:#f8f6f0ed; color:#173f38; font-size:10px; font-weight:900; letter-spacing:.07em; }
+    #nature-section .nature-body { padding:18px; display:flex; flex-direction:column; flex:1; }
+    #nature-section .nature-body h3 { color:#173f38; font-size:21px; line-height:1.2; margin:9px 0; letter-spacing:-.025em; }
+    #nature-section .nature-body p { color:#68736c; font-size:13px; line-height:1.75; margin:0 0 14px; flex:1; }
+    #nature-section .nature-science { color:#657169; font-size:11px; line-height:1.55; padding-top:10px; margin-top:4px; border-top:1px solid #edf0e8; }
+    #nature-section .nature-card-links { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    #nature-section .nature-card-links a { display:inline-flex; align-items:center; text-decoration:none; font-size:12px; font-weight:800; padding:9px 11px; border-radius:999px; }
+    #nature-section .nature-source-link { color:#173f38; background:#eef2ec; }
+    #nature-section .nature-map-link { color:#fff; background:#173f38; }
+    #nature-section .nature-card[hidden] { display:none !important; }
+    #nature-section .nature-no-results { grid-column:1/-1; padding:28px; background:#fff; border:1px dashed #cad1c8; border-radius:14px; text-align:center; color:#68736c; }
+    #nature-section .nature-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:25px 0; }
+    #nature-section .nature-stat { background:#fff; border:1px solid #dedfd6; border-radius:14px; padding:18px; }
+    #nature-section .nature-stat strong { color:#173f38; display:block; font-size:24px; letter-spacing:-.04em; }
+    #nature-section .nature-stat span { color:#68736c; font-size:12px; }
+    #nature-section .nature-care { display:grid; grid-template-columns:.75fr 1.25fr; gap:24px; align-items:start; margin-top:34px; padding:25px; border-radius:18px; background:#173f38; color:#fff; }
+    #nature-section .nature-care h3 { color:#fff; font-size:25px; line-height:1.15; margin:8px 0; }
+    #nature-section .nature-care p { margin:0; color:#dce6de; font-size:13px; line-height:1.7; }
+    #nature-section .nature-care ul { margin:0; padding-left:20px; color:#eaf0e9; font-size:13px; line-height:1.85; }
+    #nature-section .nature-footnote { color:#68736c; font-size:11px; line-height:1.7; margin-top:18px; }
+    #nature-section .nature-footnote a { color:#9c5d2b; }
+    @media(max-width:900px){ #nature-section .nature-grid{grid-template-columns:repeat(2,minmax(0,1fr));} #nature-section .nature-care{grid-template-columns:1fr;} }
+    @media(max-width:640px){ #nature-section .nature-hero{min-height:330px;padding:24px;} #nature-section .nature-grid{grid-template-columns:1fr;} #nature-section .nature-photo{height:225px;} #nature-section .nature-stats{grid-template-columns:1fr;} #nature-section .nature-stat{padding:14px;} #nature-section .nature-filters{gap:7px;} #nature-section .nature-filter{padding:9px 11px;} }
+  `;
+  document.head.appendChild(css);
+
+  const wildlifeSource = 'https://www.ustirt.kz/kz/k-siporyn?catid=2&id=2%3Ak-yzyl-kitap&view=article';
+  const plantSource = 'https://www.ustirt.kz/kz/k-siporyn?catid=2&id=2%3Ak-yzyl-kitap&view=article';
+  const biodiversitySource = 'https://ustirt.kz/kz/ekologiyalyk-agartu-zhane-turizm/ekologiyalyk-bolimi/k-azak-stannyn-k-yzyl-kitabyna-engen-stirt-tabigi-k-orygy-aumagynda-mekendejtin-t-rtzholak-ty-k-arash-bar-zhylan';
+  const natureItems = [
+    {
+      cat:'animal', kk:'Үстірт арқары', en:'Ustyurt urial',
+      descKk:'Үстірт пен Маңғыстауға тән жабайы қой тұқымдасы. Қорықтың ресми материалында бұл түрдің тек Маңғыстау мен Үстіртте мекендейтіні көрсетілген.',
+      descEn:'A wild sheep associated with the Ustyurt plateau and Mangystau. The reserve’s official material states that this subspecies occurs only in Mangystau and Ustyurt.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ovis%20vignei%20arkal%2016951821.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/File:Ovis_vignei_arkal_16951821.jpg',
+      source:wildlifeSource, sourceTextKk:'Үстірт қорығы: түрлер тізімі', sourceTextEn:'Ustyurt Reserve: species list',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'animal', kk:'Қарақұйрық', en:'Goitered gazelle',
+      descKk:'Тастақты, құмды және сазды шөлейттерге бейімделген тұяқты жануар. Үстірт қорығының дерегінде оның қорық аумағындағы мекендері көрсетілген.',
+      descEn:'An ungulate adapted to rocky, sandy and clay desert habitats. The Ustyurt Reserve lists locations where it occurs within the reserve.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Gazelle%20%28lat.%20Gazella%20subgutturosa%29.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/File:Gazelle_(lat._Gazella_subgutturosa).jpg',
+      source:'https://www.ustirt.kz/kz/ekologiyalyk-agartu-zhane-turizm/gylym-akparat-zhane-monitoring-bolimi/k-arak-jryk',
+      sourceTextKk:'Қорықтың қарақұйрық туралы дерегі', sourceTextEn:'Reserve information about gazelles',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'animal', kk:'Қарсақ', en:'Corsac fox',
+      descKk:'Ашық дала мен шөлейтке бейімделген түлкі тұқымдасы. Үстірт қорығының материалдарында Маңғыстау өңіріне тән сүтқоректілердің қатарында аталады.',
+      descEn:'A fox species adapted to open steppe and semi-desert. It is included among mammals discussed in the Ustyurt Reserve’s regional materials.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Vulpes%20corsac%20314020989.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/File:Vulpes_corsac_314020989.jpg',
+      source:wildlifeSource, sourceTextKk:'Үстірт қорығы: жануарлар дүниесі', sourceTextEn:'Ustyurt Reserve: wildlife',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'plant', kk:'Тамыр жусан', en:'White-soil wormwood',
+      descKk:'Үстірт қорығының ғылыми материалында көрсетілген жусан түрі. Шөл жағдайында өсетін өсімдіктердің бейімделуін зерттеуге мысал болады.',
+      descEn:'A wormwood species listed in the Ustyurt Reserve’s scientific material. It can be used to study how plants adapt to desert conditions.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Artemisia%20absinthium%20%2828560095621%29.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/Category:Artemisia',
+      source:'https://ustirt.kz/images/doc/1.pdf', sourceTextKk:'Үстірт қорығының ғылыми материалы (PDF)', sourceTextEn:'Ustyurt Reserve scientific report (PDF)',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'plant', kk:'Хиуа сораңы', en:'Khiva saltwort',
+      descKk:'Үстірт қорығының ресми «Қызыл кітап» материалында сирек, жойылып бара жатқан өсімдік ретінде көрсетілген. Табиғатта кездессе, жұлмау және таптамау қажет.',
+      descEn:'Listed in the reserve’s official Red Book information as a rare, endangered plant. Do not pick or trample it if encountered in the wild.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Salsola%20australis%20plant%20NWP3.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/Category:Salsola',
+      source:plantSource, sourceTextKk:'Үстірт қорығы: сирек өсімдіктер тізімі', sourceTextEn:'Ustyurt Reserve: rare plants list',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'plant', kk:'Қара сексеуіл', en:'Black saxaul',
+      descKk:'Үстірт қорығының өсімдік жамылғысында кездесетін ағаш-бұта тобы. Шөлейтті жерлердегі өсімдіктер қауымдастығының бір бөлігі.',
+      descEn:'A woody plant listed among vegetation communities in the Ustyurt Reserve. It forms part of desert and semi-desert plant communities.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%2C%20%D0%90%D0%BB%D1%82%D1%8B%D0%BD%20%D0%AD%D0%BC%D0%B5%D0%BB%D1%8C%2C%20%D0%B3%D0%BE%D1%80%D1%8B%20%D0%90%D0%BA%D1%82%D0%B0%D1%83%2C%20%D1%81%D0%B0%D0%BA%D1%81%D0%B0%D1%83%D0%BB%20%D1%87%D1%91%D1%80%D0%BD%D1%8B%D0%B9%20%281%29.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/Category:Haloxylon_ammodendron',
+      source:plantSource, sourceTextKk:'Үстірт қорығы: өсімдік дүниесі', sourceTextEn:'Ustyurt Reserve: flora',
+      map:'https://www.google.com/maps/search/?api=1&query=Ustyurt+Nature+Reserve'
+    },
+    {
+      cat:'landscape', kk:'Бозжыра', en:'Bozzhyra',
+      descKk:'Үстірттің ақ борлы жарқабақтары мен ерекше пішінді жартас бағандарымен танымал табиғи ландшафт. Қашықтағы аймаққа бармас бұрын жол және қауіпсіздік жағдайын тексер.',
+      descEn:'A natural landscape known for its pale chalk cliffs and distinctive rock formations. Check access and safety conditions before travelling to this remote area.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra%20valley%2C%20Mangistau%2C%20Kazakhstan.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau,_Kazakhstan.jpg',
+      source:'https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau,_Kazakhstan.jpg', sourceTextKk:'Фотосуреттің дерегі мен лицензиясы', sourceTextEn:'Photo information and licence',
+      map:'https://www.google.com/maps/search/?api=1&query=Bozzhyra+Mangystau'
+    },
+    {
+      cat:'landscape', kk:'Тұзбайыр', en:'Tuzbair',
+      descKk:'Ақ сор жазықтары мен айналасындағы жыныстардан құралған кең ландшафт. Жауыннан кейін жол жағдайы өзгеруі мүмкін.',
+      descEn:'A wide landscape of pale salt flats and surrounding rock formations. Road conditions can change after rain.',
+      img:'https://commons.wikimedia.org/wiki/Special:FilePath/Sor%20Tuzbair%2C%20Mangistau%2C%20Kazakhstan%2C%20November%202024.jpg?width=1000',
+      photoLink:'https://commons.wikimedia.org/wiki/Category:Nature_of_Mangystau_Region',
+      source:'https://commons.wikimedia.org/wiki/Category:Nature_of_Mangystau_Region', sourceTextKk:'Маңғыстау фотосуреттері', sourceTextEn:'Mangystau photographs',
+      map:'https://www.google.com/maps/search/?api=1&query=Tuzbair+Mangystau'
+    }
+  ];
+
+  function renderNatureSection() {
+    const isKk = lang === 'kk';
+    natureLink.textContent = isKk ? 'Табиғат әлемі' : 'Nature';
+    let section = document.getElementById('nature-section');
+    if (!section) {
+      section = document.createElement('section');
+      section.id = 'nature-section';
+      const research = document.getElementById('research');
+      research.parentNode.insertBefore(section, research);
+    }
+    const texts = isKk ? {
+      kicker:'МАҢҒЫСТАУДЫҢ ТАБИҒИ МҰРАСЫ', title:'Табиғат әлемі',
+      intro:'Өңірдің жануарлар дүниесін, дала өсімдіктерін және қайталанбас ландшафттарын танып біл.',
+      heroKicker:'ТАНЫ · ЗЕРТТЕ · ҚОРҒА', heroTitle:'Табиғат — ұрпаққа аманат',
+      heroText:'Үстірттің кең даласы, ақ борлы жартастар мен ерекше өсімдіктер мен жануарлар дүниесі — Маңғыстаудың табиғи байлығы.',
+      heroBtn:'Табиғатты зерттеу ↓', search:'Жануарды, өсімдікті немесе нысанды іздеу…',
+      all:'Барлығы', animals:'Жануарлар', plants:'Өсімдіктер', landscapes:'Жер бедері',
+      source:'Дереккөзді оқу ↗', map:'Картадан ашу ↗', noResults:'Сәйкес нәтиже табылмады. Басқа сөзбен іздеп көр.',
+      note:'Маңызды ескерту: жануарлар мен өсімдіктердің таралуы Үстірт қорығының ресми материалдарына сүйеніп сипатталған. Кейбір карточкалардағы суреттер — түрді танытуға арналған иллюстрациялар; фотоның нақты түсірілген жері сурет дереккөзінде көрсетіледі.',
+      careKicker:'ТАБИҒАТҚА ЖАУАПКЕРШІЛІК', careTitle:'Табиғатты бірге сақтайық',
+      careText:'Табиғи нысандарды келесі ұрпаққа сақтау әрбір келушінің ұқыпты әрекетінен басталады.',
+      rule1:'Қоқыс қалдырма; қалдықты өзіңмен бірге алып кет.', rule2:'Жабайы жануарларды үркітпе және тамақтандырма.',
+      rule3:'Өсімдіктерді жұлма, сирек түрлерді таптама.', rule4:'Жартастар мен табиғи қабаттарды бүлдірме.',
+      rule5:'Қорғалатын аумақтардағы ресми талаптарды орында.', statsTitle:'Үстірт қорығы туралы',
+      stats1:'өсімдік түрі (ресми материалдардағы дерек)', stats2:'сүтқоректі түрі (ресми материалдардағы дерек)', stats3:'құстар түрі (ресми материалдардағы дерек)',
+      sourceNote:'Сандар бүкіл облысты емес, Үстірт мемлекеттік табиғи қорығының ресми материалдарында көрсетілген көрсеткіштерді білдіреді.'
+    } : {
+      kicker:'MANGYSTAU’S NATURAL HERITAGE', title:'Nature of Mangystau',
+      intro:'Discover the region’s wildlife, steppe plants and distinctive landscapes.',
+      heroKicker:'DISCOVER · LEARN · PROTECT', heroTitle:'Nature is a legacy for the future',
+      heroText:'The open Ustyurt plateau, pale chalk cliffs, and distinctive plants and animals are part of Mangystau’s natural heritage.',
+      heroBtn:'Explore nature ↓', search:'Search for an animal, plant or landscape…',
+      all:'All', animals:'Animals', plants:'Plants', landscapes:'Landforms',
+      source:'Read source ↗', map:'Open map ↗', noResults:'No matching results. Try another search term.',
+      note:'Important: wildlife and plant distribution is described using official Ustyurt Reserve materials. Some card images are illustrative species photographs; the place where each photo was taken is listed on its source page.',
+      careKicker:'RESPONSIBLE NATURE VISITS', careTitle:'Let’s protect nature together',
+      careText:'Preserving natural sites for future generations starts with responsible actions by every visitor.',
+      rule1:'Do not leave litter; take your waste with you.', rule2:'Do not frighten or feed wild animals.',
+      rule3:'Do not pick plants or trample rare species.', rule4:'Do not damage cliffs or natural rock layers.',
+      rule5:'Follow official rules in protected areas.', statsTitle:'About Ustyurt Nature Reserve',
+      stats1:'plant species (reported in official material)', stats2:'mammal species (reported in official material)', stats3:'bird species (reported in official material)',
+      sourceNote:'These figures refer to the Ustyurt State Nature Reserve, not the entire Mangystau Region.'
+    };
+
+    const cats = {animal:isKk?'ЖАНУАРЛАР':'ANIMALS', plant:isKk?'ӨСІМДІКТЕР':'PLANTS', landscape:isKk?'ЖЕР БЕДЕРІ':'LANDFORMS'};
+    section.innerHTML = `
+      <div class="wrap">
+        <div class="section-head"><div><div class="kicker">${texts.kicker}</div><h2>${texts.title}</h2></div><p>${texts.intro}</p></div>
+        <div class="nature-hero"><div class="nature-hero-inner"><div class="kicker">${texts.heroKicker}</div><h3>${texts.heroTitle}</h3><p>${texts.heroText}</p><a class="nature-btn" href="#nature-cards">${texts.heroBtn}</a></div></div>
+        <div class="nature-stats" aria-label="${texts.statsTitle}">
+          <div class="nature-stat"><strong>403</strong><span>${texts.stats1}</span></div>
+          <div class="nature-stat"><strong>33</strong><span>${texts.stats2}</span></div>
+          <div class="nature-stat"><strong>174</strong><span>${texts.stats3}</span></div>
+        </div>
+        <div class="nature-tools"><input class="nature-search" id="nature-search" type="search" placeholder="${texts.search}" aria-label="${texts.search}">
+          <div class="nature-filters" role="group" aria-label="${isKk?'Табиғат санаттары':'Nature categories'}">
+            <button type="button" class="nature-filter active" data-nature-filter="all">${texts.all}</button>
+            <button type="button" class="nature-filter" data-nature-filter="animal">${texts.animals}</button>
+            <button type="button" class="nature-filter" data-nature-filter="plant">${texts.plants}</button>
+            <button type="button" class="nature-filter" data-nature-filter="landscape">${texts.landscapes}</button>
+          </div>
+        </div>
+        <div class="nature-grid" id="nature-cards"></div>
+        <div class="nature-care"><div><div class="kicker" style="color:#f0c99a">${texts.careKicker}</div><h3>${texts.careTitle}</h3><p>${texts.careText}</p></div><ul><li>${texts.rule1}</li><li>${texts.rule2}</li><li>${texts.rule3}</li><li>${texts.rule4}</li><li>${texts.rule5}</li></ul></div>
+        <p class="nature-footnote">${texts.note}<br><br>${texts.sourceNote} <a href="${biodiversitySource}" target="_blank" rel="noopener noreferrer">${isKk?'Үстірт қорығының ресми материалы':'Official Ustyurt Reserve material'} ↗</a></p>
+      </div>`;
+
+    const grid = section.querySelector('#nature-cards');
+    const searchInput = section.querySelector('#nature-search');
+    let activeFilter = 'all';
+    const drawCards = () => {
+      const q = searchInput.value.toLocaleLowerCase().trim();
+      const filtered = natureItems.filter(item => {
+        const text = `${item.kk} ${item.en} ${item.descKk} ${item.descEn}`.toLocaleLowerCase();
+        return (activeFilter === 'all' || item.cat === activeFilter) && (!q || text.includes(q));
+      });
+      grid.innerHTML = filtered.length ? filtered.map(item => {
+        const name = isKk ? item.kk : item.en;
+        const desc = isKk ? item.descKk : item.descEn;
+        const sourceText = isKk ? item.sourceTextKk : item.sourceTextEn;
+        return `<article class="nature-card" data-nature-category="${item.cat}">
+          <div class="nature-photo"><img loading="lazy" src="${item.img}" alt="${name}" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra%20valley%2C%20Mangistau%2C%20Kazakhstan.jpg?width=1000'"><span class="nature-tag">${cats[item.cat]}</span></div>
+          <div class="nature-body"><h3>${name}</h3><p>${desc}</p><div class="nature-science">${isKk?'Фотосурет дереккөзі':'Photo source'}: <a href="${item.photoLink}" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></div>
+          <div class="nature-card-links"><a class="nature-source-link" href="${item.source}" target="_blank" rel="noopener noreferrer">${texts.source}</a>${item.cat==='landscape'?`<a class="nature-map-link" href="${item.map}" target="_blank" rel="noopener noreferrer">${texts.map}</a>`:''}</div></div></article>`;
+      }).join('') : `<div class="nature-no-results">${texts.noResults}</div>`;
+    };
+    section.querySelectorAll('[data-nature-filter]').forEach(button => button.addEventListener('click', () => {
+      activeFilter = button.dataset.natureFilter;
+      section.querySelectorAll('[data-nature-filter]').forEach(other => {
+        const chosen = other === button;
+        other.classList.toggle('active', chosen);
+        other.setAttribute('aria-pressed', String(chosen));
+      });
+      drawCards();
+    }));
+    searchInput.addEventListener('input', drawCards);
+    drawCards();
+  }
+
+  renderNatureSection();
+  // The site's existing language-toggle handler runs first; this listener then refreshes this section.
+  document.getElementById('langToggle').addEventListener('click', renderNatureSection);
+})();
 </script></body></html>
