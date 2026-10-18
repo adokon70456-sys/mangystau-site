@@ -1123,4 +1123,90 @@ document.getElementById('searchInput').addEventListener('input',renderPlaces);do
     });
   }
 })();
-</script></body></html>
+</script>
+  <script>
+(function () {
+  let attempts = 0;
+
+  const timer = setInterval(function () {
+    if (typeof L === 'undefined' ||
+        typeof map === 'undefined' || !map) {
+      if (++attempts > 30) clearInterval(timer);
+      return;
+    }
+
+    clearInterval(timer);
+    if (map._glowNetworkAdded) return;
+    map._glowNetworkAdded = true;
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .mh-glow-icon {
+        background: transparent;
+        border: 0;
+      }
+      .mh-glow-icon span {
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #50ffe1;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 8px #50ffe1, 0 0 18px #00e5ff;
+      }
+      .mh-network-line {
+        filter: drop-shadow(0 0 4px #00e5ff);
+        stroke-dasharray: 5 8;
+        animation: mhFlow 12s linear infinite;
+      }
+      @keyframes mhFlow {
+        to { stroke-dashoffset: -100; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const points = [];
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.Marker) {
+        points.push(layer);
+        layer.setIcon(L.divIcon({
+          className: 'mh-glow-icon',
+          html: '<span></span>',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        }));
+      }
+    });
+
+    const connected = new Set();
+
+    points.forEach(function (point, i) {
+      points
+        .filter(function (other, j) { return i !== j; })
+        .sort(function (a, b) {
+          return point.getLatLng().distanceTo(a.getLatLng()) -
+                 point.getLatLng().distanceTo(b.getLatLng());
+        })
+        .slice(0, 2)
+        .forEach(function (other) {
+          const j = points.indexOf(other);
+          const key = [Math.min(i, j), Math.max(i, j)].join('-');
+          if (connected.has(key)) return;
+          connected.add(key);
+
+          L.polyline(
+            [point.getLatLng(), other.getLatLng()],
+            {
+              color: '#35e8d5',
+              weight: 1.5,
+              opacity: 0.65,
+              className: 'mh-network-line',
+              interactive: false
+            }
+          ).addTo(map);
+        });
+    });
+  }, 400);
+})();
+</script>
+</body></html>
