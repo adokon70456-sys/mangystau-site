@@ -202,6 +202,50 @@ const destinations=[
 {id:'karagiye',kk:'Қарақия ойпаты',en:'Karagiye Depression',cat:'nature',lat:43.40,lon:51.75,img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mangystau%20nature.jpg?width=1100',credit:'Wikimedia Commons · verify photo location',descKk:'Маңғыстаудың ерекше географиялық нысандарының бірі. Ойпат пен оның айналасындағы жер бедерін зерттегенде нақты географиялық дереккөздерге сүйену керек; белгіленбеген жерге көлікпен түспе.',descEn:'One of Mangystau’s distinctive geographical features. Use reliable geographic references to understand the terrain and avoid driving into unmarked areas.',wiki:'https://kk.wikipedia.org/wiki/Қарақия_ойпаты',maps:'https://www.google.com/maps/search/?api=1&query=Karagiye+Depression'},
 {id:'tamsaly',kk:'Тамшалы шатқалы',en:'Tamshaly Gorge',cat:'nature',lat:44.10,lon:52.82,img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mangystau%20nature.jpg?width=1100',credit:'Wikimedia Commons · verify photo location',descKk:'Табиғи су көздері мен шатқалдық ландшафтымен танымал орын. Су көздерін ластамау, өсімдіктерді таптамау және жергілікті табиғи жағдайды құрметтеу маңызды.',descEn:'A destination associated with natural springs and a gorge landscape. Keep water sources clean, avoid trampling vegetation and respect the local environment.',wiki:'https://kk.wikipedia.org/wiki/Маңғыстау_облысы',maps:'https://www.google.com/maps/search/?api=1&query=Tamshaly+Mangystau'}
 ];
+
+{
+  id:'karaman',
+  kk:'Қараман ата қорымы және жерасты мешіті',
+  en:'Karaman-Ata Necropolis and Underground Mosque',
+  cat:'history',
+  lat:43.899778,
+  lon:51.874944,
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Karaman%20Ata%201.jpg?width=1100',
+  credit:'Wikimedia Commons — Karaman Ata 1.jpg',
+  descKk:'Қараман ата қорымы мен жерасты мешіті — Маңғыстаудың тарихи-мәдени мұрасы. Бұл нысан ЮНЕСКО-ның Дүниежүзілік мұра тізіміндегі бес құрамдас орынның бірі.',
+  descEn:'Karaman-Ata is a necropolis and underground mosque in Mangystau, part of the UNESCO World Heritage serial property.',
+  wiki:'https://whc.unesco.org/en/list/1760/',
+  maps:'https://www.google.com/maps?q=43.899778,51.874944'
+},
+{
+  id:'sultan-epe',
+  kk:'Сұлтан үпі',
+  en:'Sultan-Epe',
+  cat:'history',
+  lat:44.471722,
+  lon:51.009750,
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Sultan%20Epe-1.jpg?width=1100',
+  credit:'Wikimedia Commons — Sultan Epe-1.jpg',
+  descKk:'Сұлтан үпі — Маңғыстаудың киелі тарихи мұра орындарының бірі және ЮНЕСКО тізіміндегі сериялық мұраның құрамдас бөлігі.',
+  descEn:'Sultan-Epe is a sacred historical site in Mangystau and part of the UNESCO World Heritage serial property.',
+  wiki:'https://whc.unesco.org/en/list/1760/',
+  maps:'https://www.google.com/maps?q=44.471722,51.009750'
+},
+{
+  id:'shakpak-ata',
+  kk:'Шақпақ ата жерасты мешіті',
+  en:'Shakpak-Ata Underground Mosque',
+  cat:'history',
+  lat:44.433556,
+  lon:51.138889,
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Shakpak-Ata.jpg?width=1100',
+  credit:'Wikimedia Commons — Shakpak-Ata.jpg',
+  descKk:'Шақпақ ата — жартасты қашау арқылы жасалған жерасты мешіті. Ол Маңғыстаудың тарихи-мәдени мұрасының және ЮНЕСКО-ның Дүниежүзілік мұра нысанының құрамына кіреді.',
+  descEn:'Shakpak-Ata is a rock-cut underground mosque and part of the UNESCO World Heritage serial property in Mangystau.',
+  wiki:'https://whc.unesco.org/en/list/1760/',
+  maps:'https://www.google.com/maps?q=44.433556,51.138889'
+}
+
 const routes=[{kk:'Торыш пен Шерқала бағыты',en:'Torysh & Sherkala route',stopsKk:'Ақтау → Торыш → Шерқала → Айрақты',stopsEn:'Aktau → Torysh → Sherkala → Ayrakty',descKk:'Геологиялық пішіндер мен ерекше тауларды көруге арналған бағыт. Жол жағдайы мен күндізгі жарық уақытын ескер.',descEn:'A route for geological formations and distinctive mountains. Consider road conditions and daylight.',maps:'https://www.google.com/maps/dir/Aktau/Torysh+Mangystau/Sherkala/Ayrakty'}, {kk:'Бозжыра және Боқты',en:'Bozzhyra & Bokty',stopsKk:'Ақтау → Боқты → Бозжыра',stopsEn:'Aktau → Bokty → Bozzhyra',descKk:'Алыс табиғи ландшафттарға баратын сапар. Жол талғамайтын көлік, жеткілікті су және маршрутты алдын ала тексеру қажет болуы мүмкін.',descEn:'A trip to remote natural landscapes. A suitable off-road vehicle, sufficient water and advance route checks may be necessary.',maps:'https://www.google.com/maps/dir/Aktau/Mount+Bokty+Mangystau/Bozzhyra'}, {kk:'Қасиетті орындар бағыты',en:'Sacred sites route',stopsKk:'Ақтау → Шопан ата → Бекет ата',stopsEn:'Aktau → Shopan Ata → Beket Ata',descKk:'Тарихи-рухани мұраға арналған сапар. Қасиетті орындардағы жергілікті ережелерді алдын ала біліп, құрметпен әрекет ет.',descEn:'A journey focused on spiritual and historical heritage. Learn local visitor rules in advance and act respectfully.',maps:'https://www.google.com/maps/dir/Aktau/Shopan+Ata/Beket+Ata'}];
 const tours=[{id:'bus1',type:'bus',kk:'Қызылқұп / Бозжыра',en:'Kyzylkup / Bozzhyra',price:'21 000 ₸',basis:'person',descKk:'Топтық автобус туры. Күнін, бос орындарын және бағаға кіретін қызметтерді ұйымдастырушымен нақтыла.',descEn:'Group bus tour. Confirm the date, availability and inclusions with the operator.',source:'SaparGo Travel',url:'https://sapargo-kz.kz/bustourseng',date:'2026-10-13'}, {id:'bus2',type:'bus',kk:'Торыш / Көкала / Шерқала / Айрақты',en:'Torysh / Kokala / Sherkala / Ayrakty',price:'24 000 ₸',basis:'person',descKk:'Топтық автобус туры ретінде жарияланған ұсыныс. Баға мен күнін тікелей раста.',descEn:'Published as a group bus tour. Confirm price and date directly.',source:'SaparGo Travel',url:'https://sapargo-kz.kz/bustourseng',date:'2026-10-13'}, {id:'bus3',type:'bus',kk:'Шопан ата / Бекет ата / Бозжыра',en:'Shopan Ata / Beket Ata / Bozzhyra',price:'21 000 ₸',basis:'person',descKk:'Тарихи-мәдени және табиғи орындарды біріктіретін ұсыныс. Маршруттың нақты бағдарламасын тексер.',descEn:'A published itinerary combining cultural and natural sites. Check the exact schedule.',source:'SaparGo Travel',url:'https://sapargo-kz.kz/bustourseng',date:'2026-10-13'}, {id:'jeep1',type:'jeep',kk:'Шопан ата / Бекет ата / Бозжыра',en:'Shopan Ata / Beket Ata / Bozzhyra',price:'160 000 ₸',basis:'vehicle',descKk:'Жеке джип туры. Ұйымдастырушы жариялаған баға көлікке арналған; адам басына есептелмейді. Күнін және қызмет құрамын нақтыла.',descEn:'Private jeep tour. The published price is per vehicle, not per person. Confirm date and inclusions.',source:'SaparGo Travel',url:'https://sapargo-kz.kz/',date:'2026-10-13'}, {id:'jeep2',type:'jeep',kk:'Қызылқұп / Боқты / Бозжыра',en:'Kyzylkup / Bokty / Bozzhyra',price:'180 000 ₸',basis:'vehicle',descKk:'Жеке джип турына жарияланған мысал. Нақты баға, күн және бос орындар ұйымдастырушы арқылы расталуы керек.',descEn:'A published example of a private jeep tour. Confirm current price, date and availability with the operator.',source:'SaparGo Travel',url:'https://sapargo-kz.kz/',date:'2026-10-13'}];
 const organizers=[{name:'SaparGo Travel',descKk:'Маңғыстау бойынша автобус және жеке джип турлары туралы жарияланған ұсыныстар.',descEn:'Published bus and private jeep tour offers around Mangystau.',url:'https://sapargo-kz.kz/',label:'Ресми сайт / Official website'}];
