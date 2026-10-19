@@ -217,7 +217,121 @@ function renderRoutes(){document.getElementById('routeCards').innerHTML=routes.m
 function renderTours(){let type=document.getElementById('tourType')?.value||'all';let arr=tours.filter(t=>type==='all'||t.type===type);document.getElementById('tourCards').innerHTML=arr.map(t=>`<article class="tour-card"><div class="card-body"><div class="kicker">${t.type==='bus'?esc(tr('busTours')):esc(tr('jeepTours'))}</div><h3>${esc(lang==='kk'?t.kk:t.en)}</h3><div class="price">${esc(t.price)} <small>${esc(t.basis==='vehicle'?tr('priceVehicle'):tr('pricePerson'))}</small></div><p>${esc(lang==='kk'?t.descKk:t.descEn)}</p><div class="card-meta"><span class="meta">${esc(t.source)}</span><span class="meta">${esc(lang==='kk'?'Тексерілген сілтеме':'Source checked')}: ${esc(t.date)}</span></div><p class="verified">${esc(tr('dateAsk'))}</p><div class="card-actions"><a class="btn btn-dark" href="${esc(t.url)}" target="_blank" rel="noopener">${esc(lang==='kk'?'Турды тексеру':'Check tour')} ↗</a></div></div></article>`).join('')}
 function renderOrganizers(){document.getElementById('organizerCards').innerHTML=organizers.map(o=>`<article class="organizer-card"><div class="card-body"><div class="organizer-row"><div class="org-icon">SG</div><div class="org-copy"><strong>${esc(o.name)}</strong><span>${esc(lang==='kk'?o.label:'Official website')}</span></div></div><p>${esc(lang==='kk'?o.descKk:o.descEn)}</p><div class="card-actions"><a class="btn btn-dark" href="${esc(o.url)}" target="_blank" rel="noopener">${esc(lang==='kk'?'Ресми сайтқа өту':'Visit official website')} ↗</a></div></div></article>`).join('')}
 function renderRules(){const rules=tr('rules');document.getElementById('rulesList').innerHTML=rules.map((r,i)=>`<label class="rule"><input type="checkbox" data-rule="${i}"><span>${esc(r)}</span></label>`).join('')}
-let map=null,markers={};function initMap(){if(!window.L){document.getElementById('map').innerHTML='<p style="padding:24px">Map library did not load. Please check your internet connection.</p>';return}map=L.map('map').setView([43.85,53.0],7);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);allPlaces().forEach(p=>{if(typeof p.lat!=='number'||typeof p.lon!=='number')return;const m=L.marker([p.lat,p.lon]).addTo(map).bindPopup(`<strong>${esc(currentName(p))}</strong><br>${esc(currentDesc(p).slice(0,150))}…<br><a href="${esc(p.maps)}" target="_blank" rel="noopener">${esc(tr('mapLink'))}</a>`);markers[p.id]=m});renderMapList();setTimeout(()=>map.invalidateSize(),200)}function renderMapList(){const q=(document.getElementById('mapSearch')?.value||'').toLowerCase().trim();const arr=allPlaces().filter(p=>(p.kk+' '+p.en).toLowerCase().includes(q));document.getElementById('mapList').innerHTML=arr.map(p=>`<button class="map-item" onclick="focusPlace('${esc(p.id)}')"><strong>${esc(currentName(p))}</strong><span>${esc(categoryName(p.cat))}</span></button>`).join('')}function focusPlace(id){const p=allPlaces().find(x=>x.id===id);if(!p||!map)return;map.setView([p.lat,p.lon],10);if(markers[id])markers[id].openPopup()}
+
+let map = null, markers = {};
+
+function initMap() {
+  const mapEl = document.getElementById('map');
+
+  if (!mapEl || !window.L) {
+    if (mapEl) {
+      mapEl.innerHTML =
+        '<p style="padding:24px">Map library did not load. Please check your internet connection.</p>';
+    }
+    return;
+  }
+
+  // Карта бұрын ашылған болса, қайталап жасамау
+  if (map) {
+    map.invalidateSize();
+    return;
+  }
+
+  map = L.map('map', {
+    zoomControl: true
+  }).setView([43.85, 53.0], 7);
+
+  // Негізгі карта
+  const streetLayer = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  );
+
+  // Спутниктік қабат
+  const satelliteLayer = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri'
+    }
+  );
+
+  streetLayer.addTo(map);
+
+  L.control.layers({
+    'Кәдімгі карта': streetLayer,
+    'Спутниктік карта': satelliteLayer
+  }).addTo(map);
+
+  const places = allPlaces().filter(p =>
+    typeof p.lat === 'number' &&
+    typeof p.lon === 'number' &&
+    Number.isFinite(p.lat) &&
+    Number.isFinite(p.lon)
+  );
+
+  const coordinates = [];
+
+  // Барлық бұрыннан бар орындарды сақтау
+  places.forEach(p => {
+    const point = [p.lat, p.lon];
+    coordinates.push(point);
+
+    const marker = L.marker(point).addTo(map);
+
+    marker.bindPopup(`
+      <div class="mh-popup">
+        <strong>${esc(currentName(p))}</strong>
+        <p>${esc(currentDesc(p).slice(0, 180))}</p>
+        <a href="${esc(p.maps || 'https://www.google.com/maps')}"
+           target="_blank" rel="noopener noreferrer">
+          ${esc(tr('mapLink'))}
+        </a>
+        <br>
+        <a href="https://www.google.com/maps?q=${p.lat},${p.lon}"
+           target="_blank" rel="noopener noreferrer">
+          Google Maps — координаттар
+        </a>
+        <p>📍 ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}</p>
+      </div>
+    `);
+
+    markers[p.id] = marker;
+  });
+
+  // Орындардың арасындағы жарықтанған байланыс желісі
+  // Бұл — картадағы визуалды байланыс, нақты жол бағыты емес.
+  if (coordinates.length > 1) {
+    const network = L.polyline(coordinates, {
+      color: '#00e5ff',
+      weight: 2,
+      opacity: 0.8,
+      dashArray: '5 8',
+      lineCap: 'round'
+    }).addTo(map);
+
+    network.bindTooltip('MANGYSTAU HERITAGE — мұра нысандарының байланыс желісі');
+
+    const glow = L.polyline(coordinates, {
+      color: '#00e5ff',
+      weight: 7,
+      opacity: 0.18,
+      interactive: false
+    }).addTo(map);
+
+    // Жарық сызықтарын маркерлердің астында ұстау
+    glow.bringToBack();
+    network.bringToBack();
+  }
+
+  renderMapList();
+
+  setTimeout(() => map.invalidateSize(), 300);
+}
+function renderMapList(){const q=(document.getElementById('mapSearch')?.value||'').toLowerCase().trim();const arr=allPlaces().filter(p=>(p.kk+' '+p.en).toLowerCase().includes(q));document.getElementById('mapList').innerHTML=arr.map(p=>`<button class="map-item" onclick="focusPlace('${esc(p.id)}')"><strong>${esc(currentName(p))}</strong><span>${esc(categoryName(p.cat))}</span></button>`).join('')}function focusPlace(id){const p=allPlaces().find(x=>x.id===id);if(!p||!map)return;map.setView([p.lat,p.lon],10);if(markers[id])markers[id].openPopup()}
 function saveCustom(){localStorage.setItem('mh-custom-places',JSON.stringify(customPlaces))}document.getElementById('adminToggle').addEventListener('click',()=>{const p=document.getElementById('adminPanel');p.classList.toggle('open');document.getElementById('adminToggle').textContent=p.classList.contains('open')?(lang==='kk'?'Редакторды жабу':'Close editor'):tr('editorBtn')});document.getElementById('addPlaceBtn').addEventListener('click',()=>{const kk=document.getElementById('adminNameKk').value.trim(),en=document.getElementById('adminNameEn').value.trim(),img=document.getElementById('adminImage').value.trim(),cat=document.getElementById('adminCategory').value.trim()||'nature',dk=document.getElementById('adminDescKk').value.trim(),de=document.getElementById('adminDescEn').value.trim(),lat=Number(document.getElementById('adminLat').value),lon=Number(document.getElementById('adminLon').value);if(!kk||!en||!img||!dk||!de||!document.getElementById('adminLat').value||!document.getElementById('adminLon').value){alert(lang==='kk'?'Барлық негізгі өрісті, оның ішінде нақты координаттарды толтыр.':'Fill in all required fields, including verified coordinates.');return}customPlaces.push({id:'custom-'+Date.now(),kk,en,img,cat,descKk:dk,descEn:de,credit:'Admin-added image; verify source/license',lat,lon,maps:'https://www.google.com/maps'});saveCustom();renderPlaces();if(map){const p=customPlaces[customPlaces.length-1];markers[p.id]=L.marker([p.lat,p.lon]).addTo(map).bindPopup(esc(kk))}renderMapList();alert(lang==='kk'?'Орын осы браузерге сақталды.':'Place saved in this browser.');});document.getElementById('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(customPlaces,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mangystau-custom-places.json';a.click();URL.revokeObjectURL(a.href)});document.getElementById('importFile').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;const data=JSON.parse(await f.text());if(!Array.isArray(data))throw new Error('not array');customPlaces=data;saveCustom();renderPlaces();renderMapList();alert(lang==='kk'?'Импортталды. Картаны жаңарту үшін бетті қайта жүкте.':'Imported. Reload to refresh map markers.')}catch(err){alert(lang==='kk'?'JSON файлын оқу мүмкін болмады.':'Could not read JSON file.')}});
 document.getElementById('searchInput').addEventListener('input',renderPlaces);document.getElementById('categoryFilter').addEventListener('change',e=>{activeCat=e.target.value;renderPlaces()});document.getElementById('tourType').addEventListener('change',renderTours);document.getElementById('mapSearch').addEventListener('input',renderMapList);document.getElementById('langToggle').addEventListener('click',()=>{lang=lang==='kk'?'en':'kk';localStorage.setItem('mh-lang',lang);applyTranslations();if(map){Object.values(markers).forEach(m=>map.removeLayer(m));markers={};allPlaces().forEach(p=>{if(typeof p.lat!=='number')return;markers[p.id]=L.marker([p.lat,p.lon]).addTo(map).bindPopup(`<strong>${esc(currentName(p))}</strong><br>${esc(currentDesc(p).slice(0,150))}…<br><a href="${esc(p.maps)}" target="_blank">${esc(tr('mapLink'))}</a>`)});}});document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));document.getElementById('modalClose').addEventListener('click',()=>document.getElementById('placeModal').classList.remove('open'));document.getElementById('placeModal').addEventListener('click',e=>{if(e.target.id==='placeModal')e.currentTarget.classList.remove('open')});document.getElementById('year').textContent=new Date().getFullYear();applyTranslations();initMap();
 /* MANGYSTAU HERITAGE — ТАБИҒАТ ӘЛЕМІ
