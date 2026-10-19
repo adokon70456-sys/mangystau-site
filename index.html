@@ -1242,7 +1242,43 @@ document.getElementById('searchInput').addEventListener('input',renderPlaces);do
       lng: 51.009750
     }
   ];
+    const unescoLayer = L.layerGroup();
 
+  unescoPlaces.forEach(function(place) {
+    const marker = L.marker([place.lat, place.lng], {
+      title: place.name
+    });
+
+    marker.bindPopup(`
+      <div style="
+        min-width:190px;
+        font-family:Arial,sans-serif;
+        color:#4a3021;
+      ">
+        <h3 style="margin:0 0 8px;color:#a96f3d">
+          ✦ ${place.name}
+        </h3>
+        <p style="margin:5px 0">
+          📍 ${place.lat}, ${place.lng}
+        </p>
+        <a
+          href="https://www.google.com/maps?q=${place.lat},${place.lng}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color:#9b642f;font-weight:bold"
+        >
+          Google Maps-та ашу ↗
+        </a>
+      </div>
+    `);
+
+    marker.addTo(unescoLayer);
+  });
+
+  unescoLayer.addTo(map);
+
+})();
+</script>
   let attempts = 0;
 
   const timer = setInterval(function () {
