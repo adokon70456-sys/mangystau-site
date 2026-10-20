@@ -1,0 +1,262 @@
+
+<!-- MANGYSTAU HERITAGE — ADAI KUY PLAYER -->
+<section class="mh-adai-player" id="mh-adai-music">
+  <div class="mh-adai-symbol" aria-hidden="true">♫</div>
+
+  <div class="mh-adai-info">
+    <span class="mh-adai-label">МАҢҒЫСТАУДЫҢ РУХЫ</span>
+    <h2>Адай күйі</h2>
+    <p>Домбыра үнімен туған өлкенің рухын сезініңіз.</p>
+
+    <audio id="mh-adai-audio" preload="none">
+      <source src="./adai.mp3" type="audio/mpeg">
+      Браузеріңіз аудио ойнатуды қолдамайды.
+    </audio>
+
+    <div class="mh-adai-controls">
+      <button id="mh-adai-toggle" type="button"
+              aria-label="Адай күйін ойнату">
+        <span id="mh-adai-icon">▶</span>
+        <span id="mh-adai-button-text">Адай күйін тыңдау</span>
+      </button>
+      <span id="mh-adai-status" role="status">Дайын</span>
+    </div>
+
+    <div class="mh-adai-progress">
+      <span id="mh-adai-current">0:00</span>
+      <input id="mh-adai-seek" type="range"
+             min="0" max="100" value="0" step="0.1"
+             aria-label="Күйдің ойналу орны">
+      <span id="mh-adai-duration">0:00</span>
+    </div>
+  </div>
+</section>
+
+<style>
+.mh-adai-player {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 850px;
+  margin: 32px auto;
+  padding: 28px;
+  color: #f6ead8;
+  background: linear-gradient(135deg, #241912, #493020);
+  border: 1px solid #a87545;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  font-family: inherit;
+}
+
+.mh-adai-player *,
+.mh-adai-player *::before,
+.mh-adai-player *::after {
+  box-sizing: border-box;
+}
+
+.mh-adai-symbol {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #c59a68;
+  border-radius: 50%;
+  color: #e5bd87;
+  font-size: 42px;
+  background: rgba(0,0,0,.15);
+}
+
+.mh-adai-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mh-adai-label {
+  color: #d7ad78;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.mh-adai-info h2 {
+  margin: 7px 0;
+  color: #fff0d8;
+  font-size: clamp(24px, 4vw, 34px);
+}
+
+.mh-adai-info p {
+  margin: 0 0 18px;
+  color: #e0cdb8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mh-adai-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#mh-adai-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 18px;
+  color: #21160f;
+  background: #d7ad78;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+#mh-adai-toggle:hover {
+  background: #edc99a;
+  transform: translateY(-1px);
+}
+
+#mh-adai-toggle:focus-visible,
+#mh-adai-seek:focus-visible {
+  outline: 2px solid #fff0d8;
+  outline-offset: 4px;
+}
+
+#mh-adai-status {
+  color: #e0cdb8;
+  font-size: 12px;
+}
+
+.mh-adai-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 17px;
+  color: #e0cdb8;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+#mh-adai-seek {
+  flex: 1;
+  min-width: 0;
+  accent-color: #d7ad78;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .mh-adai-player {
+    gap: 14px;
+    padding: 19px 15px;
+    border-radius: 16px;
+  }
+
+  .mh-adai-symbol {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    font-size: 29px;
+  }
+
+  #mh-adai-toggle {
+    width: 100%;
+    padding: 12px 10px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const audio = document.getElementById('mh-adai-audio');
+  const toggle = document.getElementById('mh-adai-toggle');
+  const icon = document.getElementById('mh-adai-icon');
+  const buttonText = document.getElementById('mh-adai-button-text');
+  const status = document.getElementById('mh-adai-status');
+  const seek = document.getElementById('mh-adai-seek');
+  const current = document.getElementById('mh-adai-current');
+  const duration = document.getElementById('mh-adai-duration');
+
+  if (!audio || !toggle || toggle.dataset.ready) return;
+  toggle.dataset.ready = 'true';
+
+  function timeText(seconds) {
+    if (!Number.isFinite(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins + ':' + String(secs).padStart(2, '0');
+  }
+
+  function updateButton() {
+    const playing = !audio.paused;
+    icon.textContent = playing ? 'Ⅱ' : '▶';
+    buttonText.textContent = playing
+      ? 'Күйді тоқтату'
+      : 'Адай күйін тыңдау';
+    toggle.setAttribute('aria-label',
+      playing ? 'Күйді уақытша тоқтату' : 'Адай күйін ойнату');
+  }
+
+  toggle.addEventListener('click', async function () {
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+
+    if (audio.error) {
+      status.textContent = 'Аудиофайлды тексеріңіз';
+    }
+
+    try {
+      status.textContent = 'Жүктелуде…';
+      await audio.play();
+      status.textContent = 'Ойнатылып жатыр';
+    } catch (error) {
+      status.textContent = 'Аудио ашылмады. Файлды тексеріңіз.';
+    }
+  });
+
+  audio.addEventListener('loadedmetadata', function () {
+    duration.textContent = timeText(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    current.textContent = timeText(audio.currentTime);
+    if (Number.isFinite(audio.duration) && audio.duration > 0) {
+      seek.value = (audio.currentTime / audio.duration) * 100;
+    }
+  });
+
+  seek.addEventListener('input', function () {
+    if (Number.isFinite(audio.duration) && audio.duration > 0) {
+      audio.currentTime = (Number(seek.value) / 100) * audio.duration;
+    }
+  });
+
+  audio.addEventListener('play', function () {
+    status.textContent = 'Ойнатылып жатыр';
+    updateButton();
+  });
+
+  audio.addEventListener('pause', function () {
+    status.textContent = 'Уақытша тоқтатылды';
+    updateButton();
+  });
+
+  audio.addEventListener('ended', function () {
+    status.textContent = 'Күй аяқталды';
+    updateButton();
+  });
+
+  audio.addEventListener('error', function () {
+    status.textContent = 'Аудиофайл табылмады';
+  });
+
+  updateButton();
+})();
+</script>
